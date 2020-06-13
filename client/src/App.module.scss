@@ -1,0 +1,21 @@
+.app {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+  grid-template-areas: 'start content end';
+}
+
+// 800px
+@media (max-width: 50rem) {
+  .app {
+    grid-template-columns: 2% 96% 2%;
+    grid-template-areas: 'start content end';
+  }
+}
+
+// 450px
+@media (max-width: 28.125rem) {
+  .app {
+    grid-template-columns: 3% 94% 3%;
+    grid-template-areas: 'start content end';
+  }
+}

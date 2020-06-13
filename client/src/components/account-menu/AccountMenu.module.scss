@@ -1,0 +1,16 @@
+.accountMenu {
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  padding: 2rem;
+  color: #777777;
+  width: var(--menu-width);
+
+  display: grid;
+  grid-row-gap: 2rem;
+  justify-items: start;
+  font-family: var(--roboto-mono);
+}

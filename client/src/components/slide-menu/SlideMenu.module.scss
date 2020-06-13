@@ -1,0 +1,34 @@
+.slideMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  height: 100vh;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-row-gap: 3rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 10px 20px 20px rgba(0, 0, 0, 0.2);
+  font-family: var(--roboto-mono);
+
+  &__close {
+    display: grid;
+    grid-template-columns: min-content min-content;
+    grid-column-gap: 2rem;
+    justify-content: start;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    text-transform: capitalize;
+    letter-spacing: 0.15rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+
+  &__itemsBox {
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-row-gap: 2rem;
+  }
+}

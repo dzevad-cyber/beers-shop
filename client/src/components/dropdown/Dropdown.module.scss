@@ -1,0 +1,27 @@
+.dropdown {
+  display: grid;
+  grid-row-gap: 1.5rem;
+  font-size: 1.4rem;
+
+  &__title {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    grid-column-gap: 2rem;
+
+    cursor: pointer;
+    text-transform: capitalize;
+    letter-spacing: 0.15rem;
+  }
+
+  &__body {
+    display: grid;
+    padding-left: 1rem;
+    grid-row-gap: 1rem;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}

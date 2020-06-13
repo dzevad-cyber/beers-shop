@@ -1,0 +1,50 @@
+.menuIcon {
+  display: none;
+  --width: 30px;
+  --line-height: 5px;
+  --bg-color: #000000;
+  --bd-radius: 8px;
+}
+
+// mobile
+// 450px
+@media (max-width: 28.125rem) {
+  .menuIcon {
+    width: var(--width);
+    height: var(--width);
+    // background-color: tomato;
+    display: grid;
+    align-content: center;
+    cursor: pointer;
+
+    &__line {
+      position: relative;
+      width: var(--width);
+      height: var(--line-height);
+      background-color: var(--bg-color);
+      border-radius: var(--bd-radius);
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: 0;
+        background-color: var(--bg-color);
+        width: var(--width);
+        height: var(--line-height);
+        border-radius: var(--bd-radius);
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 0;
+        background-color: var(--bg-color);
+        width: var(--width);
+        height: var(--line-height);
+        border-radius: var(--bd-radius);
+      }
+    }
+  }
+}

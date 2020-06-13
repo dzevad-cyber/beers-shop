@@ -1,0 +1,22 @@
+.header {
+  grid-area: content;
+
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+
+  padding: 4rem 0;
+
+  &__logo {
+    justify-self: center;
+  }
+}
+
+// 450px
+@media (max-width: 28.125rem) {
+  .header {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+  }
+}

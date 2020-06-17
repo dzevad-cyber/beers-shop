@@ -1,11 +1,14 @@
 .header {
-  grid-area: content;
+  grid-column: 2 / 3;
 
   display: grid;
   grid-template-columns: 1fr auto auto;
 
   padding: 4rem 0;
 
+  &__logo {
+    justify-self: center;
+  }
   &__logo {
     justify-self: center;
   }
@@ -18,5 +21,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    &__logo {
+      width: 100px;
+    }
   }
 }

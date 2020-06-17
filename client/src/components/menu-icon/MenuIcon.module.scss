@@ -1,9 +1,10 @@
 .menuIcon {
   display: none;
   --width: 30px;
-  --line-height: 5px;
+  --line-height: 3px;
   --bg-color: #000000;
-  --bd-radius: 8px;
+  --bd-radius: 10px;
+  --line-distance: 8px;
 }
 
 // mobile
@@ -12,7 +13,6 @@
   .menuIcon {
     width: var(--width);
     height: var(--width);
-    // background-color: tomato;
     display: grid;
     align-content: center;
     cursor: pointer;
@@ -27,7 +27,7 @@
       &::after {
         content: '';
         position: absolute;
-        top: -10px;
+        top: calc(var(--line-distance) * -1);
         left: 0;
         background-color: var(--bg-color);
         width: var(--width);
@@ -38,7 +38,7 @@
       &::before {
         content: '';
         position: absolute;
-        top: 10px;
+        top: var(--line-distance);
         left: 0;
         background-color: var(--bg-color);
         width: var(--width);

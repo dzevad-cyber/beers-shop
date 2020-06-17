@@ -1,0 +1,57 @@
+.intro {
+  grid-column: 2 / 3;
+
+  display: grid;
+  justify-content: center;
+
+  height: 60vh;
+
+  &__box {
+    display: grid;
+    justify-items: center;
+    grid-auto-rows: min-content;
+    position: relative;
+    animation: slide_up 0.5s 0.5s forwards;
+    opacity: 0;
+    grid-row-gap: 1rem;
+  }
+
+  &__title {
+    font-size: 17.3rem;
+    font-family: var(--red-hat-display);
+    display: grid;
+    grid-auto-rows: min-content;
+    justify-items: center;
+    text-transform: uppercase;
+    letter-spacing: 2rem;
+  }
+
+  &__titleBlack {
+    color: var(--color-black);
+    line-height: 17rem;
+  }
+
+  &__titleRed {
+    color: var(--color-red);
+    line-height: 17rem;
+  }
+
+  &__subtitle {
+    font-size: 3.6rem;
+    font-weight: 400;
+    letter-spacing: 0.15rem;
+    font-family: var(--roboto-mono);
+  }
+}
+
+@keyframes slide_up {
+  0% {
+    top: 50%;
+    opacity: 0;
+  }
+
+  100% {
+    top: 20%;
+    opacity: 1;
+  }
+}

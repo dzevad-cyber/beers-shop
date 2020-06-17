@@ -1,7 +1,23 @@
 .app {
   display: grid;
   grid-template-columns: 15% 70% 15%;
-  grid-template-areas: 'start content end';
+}
+
+.imgBg {
+  background-image: url('./assets/images/imageedit_1_3500818934.png');
+  background-position: center center;
+  background-size: cover;
+  filter: grayscale(100%);
+  display: grid;
+  grid-column: 1;
+  grid-row: 1;
+  height: 100vh;
+  z-index: -1;
+}
+
+.position {
+  grid-column: 1 / -1;
+  margin-top: 20rem;
 }
 
 // 800px

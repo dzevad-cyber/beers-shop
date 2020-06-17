@@ -1,0 +1,37 @@
+.product {
+  display: grid;
+  justify-items: center;
+  grid-auto-rows: min-content;
+  grid-row-gap: 2rem;
+  color: var(--color-black);
+  cursor: pointer;
+
+  &__name {
+    font-family: var(--red-hat-display);
+    font-weight: 900;
+    font-size: var(--fz-small);
+
+    &:hover {
+      color: var(--color-red-secondary);
+    }
+  }
+
+  &__ingredients {
+    font-family: var(--roboto-mono);
+    font-size: var(--fz-large);
+    display: grid;
+    grid-row-gap: 1rem;
+    justify-items: center;
+  }
+
+  &__price {
+    font-family: var(--font-mr-dafoe);
+    font-size: var(--fz-medium);
+    font-weight: 900;
+    color: var(--color-red-secondary);
+  }
+
+  &:hover &__name {
+    border-bottom: 1px solid var(--color-black);
+  }
+}

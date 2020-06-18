@@ -1,0 +1,37 @@
+.contactForm {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 2rem;
+
+  &__input {
+    font-size: var(--fz-medium);
+    padding: 0.5rem 0;
+    padding-left: 1rem;
+    font-family: var(--roboto-mono);
+    width: 250px;
+    border: 1px solid #e0e7e7;
+
+    &:focus {
+      border: none;
+      outline-style: solid;
+      outline-color: var(--color-red);
+      outline-width: thin;
+    }
+  }
+
+  &__btn {
+    all: unset;
+    font-size: 1.9rem;
+    padding: 0.5rem 3rem;
+    background-color: var(--color-red);
+    color: #ffffff;
+    font-family: var(--red-hat-display);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: var(--color-black);
+    }
+  }
+}

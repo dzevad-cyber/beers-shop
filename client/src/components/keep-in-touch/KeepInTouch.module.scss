@@ -1,0 +1,21 @@
+.keepintouch {
+  display: grid;
+  justify-items: center;
+  grid-column: 2 / 3;
+  grid-row-gap: 2rem;
+  margin: 5rem 0;
+}
+
+.title {
+  font-size: 7rem;
+  font-family: var(--red-hat-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+.text {
+  font-size: var(--fz-large);
+  font-family: var(--roboto-mono);
+  text-align: center;
+}

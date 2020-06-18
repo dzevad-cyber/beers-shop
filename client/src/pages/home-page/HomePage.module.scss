@@ -1,0 +1,37 @@
+.homePage {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+}
+
+.imgBg {
+  background-image: url('../../assets/images/imageedit_1_3500818934.png');
+  background-position: center center;
+  background-size: cover;
+  filter: grayscale(100%);
+  display: grid;
+  grid-column: 1;
+  grid-row: 1;
+  height: 100vh;
+  z-index: -1;
+}
+
+.position {
+  grid-column: 1 / -1;
+  margin-top: 20rem;
+}
+
+// 800px
+@media (max-width: 50rem) {
+  .homePage {
+    grid-template-columns: 2% 96% 2%;
+    grid-template-areas: 'start content end';
+  }
+}
+
+// 450px
+@media (max-width: 28.125rem) {
+  .homePage {
+    grid-template-columns: 3% 94% 3%;
+    grid-template-areas: 'start content end';
+  }
+}

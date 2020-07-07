@@ -18,7 +18,7 @@ html {
 
 :root {
   --menu-width: 300px;
-  
+
   --roboto-mono: 'Roboto Mono', monospace;
   --red-hat-display: 'Red Hat Display', sans-serif;
   --font-mr-dafoe: 'Mr Dafoe', cursive;
@@ -30,11 +30,30 @@ html {
   --fz-large: 1.8rem;
   --fz-medium: 1.6rem;
   --fz-small: 1.4rem;
-}
+
+  --fz-intro-title: 17.3rem;
+  --fz-intro-subtitle: 3.6rem;
+} 
 
 body {
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   background-color: #ffffff;
   color: #191919;
+}
+
+// 800px - tablet
+@media (max-width: 50rem) {
+  :root {
+    --fz-intro-title: 5rem;
+    --fz-intro-subtitle: 2.8rem;
+  }
+}
+
+// 450px - mobile
+@media (max-width: 28.125rem) {
+  :root {
+    --fz-intro-title: 5rem;
+    --fz-intro-subtitle: 1.4rem;
+  }
 }

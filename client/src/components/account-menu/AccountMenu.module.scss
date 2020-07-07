@@ -5,12 +5,57 @@
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
   font-size: 1.4rem;
   letter-spacing: 0.1rem;
-  padding: 2rem;
-  color: #777777;
+  // color: #777777;
   width: var(--menu-width);
+  z-index: 100;
+  font-family: var(--roboto-mono);
 
   display: grid;
-  grid-row-gap: 2rem;
-  justify-items: start;
-  font-family: var(--roboto-mono);
+
+  &__main {
+    display: grid;
+    grid-row-gap: 2rem;
+    padding: 2rem;
+    background-color: #fff;
+  }
+}
+
+.btnClose {
+  display: none;
+}
+
+.backdrop {
+  display: none;
+}
+
+// 450px - 28.125rem - mobile
+@media (max-width: 28.125rem) {
+  .accountMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    &__main {
+      grid-auto-rows: min-content;
+      width: 70vw;
+      height: 100vh;
+    }
+  }
+
+  .backdrop {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .btnClose {
+    display: block;
+    justify-self: end;
+    padding: 1rem;
+    border-radius: 100px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
 }

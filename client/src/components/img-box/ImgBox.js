@@ -2,12 +2,12 @@ import React from 'react';
 
 import styles from './ImgBox.module.scss';
 
-const ImgBox = ({ src, customStyle }) => {
+const ImgBox = ({ src, className }) => {
   return (
-    <div className={`${styles.imgBox} ${customStyle}`}>
-      <img className={styles.imgBox__img} src={src} alt='product image' />
+    <div className={`${styles.imgBox} ${className}`}>
+      <img className={styles.imgBox__img} src={src} alt='product' />
     </div>
   );
 };
 
-export default ImgBox;
+export default React.memo(ImgBox);

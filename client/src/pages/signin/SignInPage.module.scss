@@ -1,0 +1,101 @@
+.signInPage {
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 550px));
+  grid-auto-rows: min-content;
+  grid-gap: 3rem;
+  justify-content: center;
+  align-content: start;
+  padding: 0 1rem;
+
+  &__title {
+    grid-column: 1 / -1;
+
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-family: var(--red-hat-display);
+    font-size: 34px;
+    justify-self: center;
+  }
+
+  &__newCustomer {
+    display: grid;
+    grid-row-gap: 3rem;
+    grid-auto-rows: min-content;
+
+    border: 1px solid #e9e7e7;
+    padding: 3rem 2rem;
+    justify-self: end;
+  }
+
+  &__subtitle {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: var(--red-hat-display);
+    letter-spacing: 0.1rem;
+  }
+
+  &__text {
+    font-size: 14px;
+    font-family: var(--roboto-mono);
+    letter-spacing: 0.1rem;
+    text-transform: capitalize;
+  }
+}
+
+.btnGoTo__account {
+  justify-self: start;
+  background-color: #fff;
+  text-transform: uppercase;
+}
+
+.btnGoTo__login {
+  justify-self: start;
+  background-color: #fff;
+  text-transform: uppercase;
+}
+
+.form__group {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.warning {
+  cursor: pointer;
+  color: var(--color-red-secondary);
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--color-black);
+  }
+}
+
+.form__signIn {
+  grid-column: 2;
+}
+
+.form__resetPassword {
+  grid-column: 2;
+}
+
+// 450px - 28.125rem - mobile
+@media (max-width: 28.125rem) {
+  .signInPage {
+    grid-template-columns: initial;
+
+    &__title {
+      font-size: 24px;
+    }
+  }
+
+  .form__signIn {
+    grid-column: 1 / -1;
+  }
+
+  .form__resetPassword {
+    grid-column: 1 / -1;
+  }
+}

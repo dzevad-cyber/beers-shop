@@ -1,75 +1,69 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 
-import { ReactComponent as AccountSvg } from '../../assets/icons/account_circle-24px.svg';
+import logo from '../../assets/images/beers_logo_155x.png';
 
 import Button from '../button/Button';
-import logo from '../../assets/images/beers_logo_155x.png';
 import Tooltip from '../../components/tooltip/Tooltip';
 import ButtonGroup from '../../components/button-group/ButtonGroup';
 import AccountMenu from '../../components/account-menu/AccountMenu';
 import CartMenu from '../../components/cart-menu/CartMenu';
-import MenuIcon from '../../components/menu-icon/MenuIcon';
-import SlideMenu from '../../components/slide-menu/SlideMenu';
-import Dropdown from '../../components/dropdown/Dropdown';
 
 const Header = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showCartMenu, setShowCartMenu] = useState(false);
-  const [showSlideMenu, setShowSlideMenu] = useState(false);
 
   const toggleAccountMenu = () => {
-    setShowAccountMenu(!showAccountMenu);
     if (showCartMenu) setShowCartMenu(!showCartMenu);
+    setShowAccountMenu(!showAccountMenu);
   };
 
   const toggleCartMenu = () => {
-    setShowCartMenu(!showCartMenu);
     if (showAccountMenu) setShowAccountMenu(!showAccountMenu);
-  };
-
-  const toggleSlideMenu = () => {
-    setShowSlideMenu(!showSlideMenu);
+    setShowCartMenu(!showCartMenu);
   };
 
   return (
-    <header className={styles.header}>
-      <img className={styles.header__logo} src={logo} alt='logo' />
+    <header className={styles.header} id='header-main'>
+      <Link to='/'>
+        <img className={styles.header__logo} src={logo} alt='logo' />
+      </Link>
       <ButtonGroup>
         <Tooltip text='my account'>
-          <Button icon='account' onClick={toggleAccountMenu} />
+          <Button icon='account' _onClick={toggleAccountMenu} />
         </Tooltip>
         <Tooltip text='cart'>
-          <Button icon='shoppingCart' onClick={toggleCartMenu} />
+          <Button icon='shoppingCart' _onClick={toggleCartMenu} />
         </Tooltip>
-        <AccountMenu toggle={showAccountMenu}>
-          <Button txtColor='#777777' icon='signin'>
+        <AccountMenu toggle={showAccountMenu} _onClick={toggleAccountMenu}>
+          <Button
+            _onClick={toggleAccountMenu}
+            to='/signin'
+            txtColor='#777777'
+            icon='signin'
+          >
             sign in
           </Button>
-          <Button txtColor='#777777' icon='register'>
+          <Button
+            to='/register'
+            _onClick={toggleAccountMenu}
+            txtColor='#777777'
+            icon='register'
+          >
             register
           </Button>
-          <Button txtColor='#777777' icon='shoppingCart'>
+          <Button
+            _onClick={toggleAccountMenu}
+            txtColor='#777777'
+            icon='shoppingCart'
+          >
             view cart
           </Button>
         </AccountMenu>
-        <CartMenu toggle={showCartMenu}></CartMenu>
+        <CartMenu toggle={showCartMenu} _onClick={toggleCartMenu}></CartMenu>
       </ButtonGroup>
-      <MenuIcon onClick={toggleSlideMenu} />
-      <SlideMenu onClick={toggleSlideMenu} toggle={showSlideMenu}>
-        <Dropdown title='account' icon='account'>
-          <Button txtColor='#777777' icon='signin'>
-            sign in
-          </Button>
-          <Button txtColor='#777777' icon='register'>
-            register
-          </Button>
-          <Button txtColor='#777777' icon='shoppingCart'>
-            view cart
-          </Button>
-        </Dropdown>
-      </SlideMenu>
     </header>
   );
 };

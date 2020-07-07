@@ -1,8 +1,12 @@
 .button {
   all: unset;
+
+  display: grid;
+
   cursor: pointer;
   transition: all 0.2s ease-out;
   font-size: 1.4rem;
+  width: 100%;
 
   &__icon {
     width: 20px;
@@ -19,8 +23,7 @@
   &__box {
     display: grid;
     grid-auto-flow: column;
-    grid-column-gap: 1rem;
-    justify-content: start;
+    grid-column-gap: 2rem;
     width: max-content;
     align-items: center;
   }

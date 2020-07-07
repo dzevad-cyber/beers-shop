@@ -1,0 +1,48 @@
+.btnScrollTop {
+  all: unset;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 2rem;
+  background-color: rgba(247, 71, 71, 0.75);
+  cursor: pointer;
+  opacity: 0;
+
+  &:hover {
+    background-color: rgba(25, 25, 25, 0.75);
+  }
+}
+
+.btnScrollTop:hover .icon {
+  transform: translateY(-5px);
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  fill: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.slideUpAnimation {
+  animation: slideUp 0.3s forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    bottom: 0;
+  }
+
+  100% {
+    opacity: 1;
+    bottom: 50px;
+  }
+}
+
+// 450px - mobile
+@media (max-width: 28.125rem) {
+  .btnScrollTop {
+    display: none;
+  }
+}

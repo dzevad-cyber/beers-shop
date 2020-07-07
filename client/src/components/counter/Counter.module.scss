@@ -1,0 +1,28 @@
+.counter {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  background-color: #f7f8fa;
+  width: 150px;
+  padding: 1rem;
+  justify-content: space-evenly;
+
+  &__icon {
+    width: 12px;
+    height: 12px;
+    fill: #d8d8d8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      fill: var(--color-black);
+    }
+  }
+
+  &__count {
+    font-family: var(--red-hat-display);
+    font-size: var(--fz-small);
+    color: var(--color-black);
+    font-weight: 900;
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './Button.module.scss';
 
@@ -14,14 +15,14 @@ const icons = {
   signin: <SigninSvg className={styles.button__icon} />,
 };
 
-const Button = ({ icon, children, txtColor, onClick }) => {
+const Button = ({ icon, children, txtColor, _onClick, className, to }) => {
   const txtStyles = {
     '--txt-color': txtColor,
   };
 
   return (
-    <button className={styles.button} onClick={onClick}>
-      <div className={styles.button__box}>
+    <Link to={to} className={styles.button} onClick={_onClick}>
+      <div className={`${styles.button__box} ${className}`}>
         {icon && icons[icon]}
         {children && (
           <span style={txtStyles} className={styles.button__text}>
@@ -29,7 +30,7 @@ const Button = ({ icon, children, txtColor, onClick }) => {
           </span>
         )}
       </div>
-    </button>
+    </Link>
   );
 };
 

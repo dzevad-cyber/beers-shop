@@ -3,7 +3,7 @@
   justify-items: center;
   grid-column: 2 / 3;
   grid-row-gap: 2rem;
-  margin: 5rem 0;
+  margin: 10rem 0;
 }
 
 .title {
@@ -12,10 +12,26 @@
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
+  text-align: center;
 }
 
 .text {
   font-size: var(--fz-large);
   font-family: var(--roboto-mono);
   text-align: center;
+}
+
+// 450px - mobile
+@media (max-width: 28.125rem) {
+  .keepintouch {
+    grid-column: 1;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .text {
+    font-size: var(--fz-medium);
+  }
 }

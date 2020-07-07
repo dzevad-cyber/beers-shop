@@ -5,7 +5,7 @@
   width: 50vw;
   height: 100vh;
   background-color: #ffffff;
-  display: grid;
+  display: none;
   grid-template-rows: auto 1fr;
   grid-row-gap: 3rem;
   padding: 1rem 1.5rem;
@@ -30,5 +30,12 @@
     display: grid;
     grid-auto-rows: min-content;
     grid-row-gap: 2rem;
+  }
+}
+
+// 450px - 28.125 - mobile
+@media (max-width: 28.125) {
+  .slideMenu {
+    display: grid;
   }
 }

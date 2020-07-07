@@ -5,10 +5,24 @@ import { CSSTransition } from 'react-transition-group';
 import styles from './AccountMenu.module.scss';
 import slide from '../../transitions/slide.module.scss';
 
-const AccountMenu = ({ children, toggle }) => {
+import { ReactComponent as ArrowRighSvg } from '../../assets/icons/arrow_right_alt-24px.svg';
+
+import Button from '../../features/button/Button';
+import Backdrop from '../backdrop/Backdrop';
+
+const AccountMenu = ({ children, toggle, _onClick }) => {
   return (
     <CSSTransition classNames={slide} in={toggle} timeout={300} unmountOnExit>
-      <div className={styles.accountMenu}>{children}</div>
+      <section className={styles.accountMenu}>
+        <Backdrop className={styles.backdrop} _onClick={_onClick} />
+
+        <section className={styles.accountMenu__main}>
+          <Button className={styles.btnClose} onClick={_onClick}>
+            <ArrowRighSvg />
+          </Button>
+          {children}
+        </section>
+      </section>
     </CSSTransition>
   );
 };

@@ -5,26 +5,42 @@
   grid-template-columns: 1fr auto auto;
 
   padding: 4rem 0;
+  margin-bottom: 5rem;
 
   &__logo {
-    justify-self: center;
-  }
-  &__logo {
-    justify-self: center;
+    justify-self: start;
   }
 }
 
-// 450px
-@media (max-width: 28.125rem) {
+.btnClose {
+  display: none;
+}
+
+// 800px - tablet
+@media (max-width: 50rem) {
   .header {
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
+    grid-column: 1 / -1;
+
+    padding: 1rem 2rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     &__logo {
       width: 100px;
+    }
+  }
+}
+
+// 450px - 28.125rem - mobile
+@media (max-width: 28.125rem) {
+  .btnClose {
+    display: block;
+    justify-self: end;
+    padding: 1rem;
+    border-radius: 100px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
     }
   }
 }

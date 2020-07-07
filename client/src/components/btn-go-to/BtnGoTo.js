@@ -1,14 +1,14 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import styles from './BtnGoTo.module.scss';
 
-import { ReactComponent as ArrowRight } from '../../assets/icons/arrow_right_alt-24px.svg';
-
-const BtnGoTo = ({ children }) => {
+const BtnGoTo = ({ children, _className, _to }) => {
   return (
-    <button className={styles.btnGoTo}>
-      {children} <ArrowRight className={styles.btnGoTo__icon} />
-    </button>
+    <Link to={_to} className={`${styles.btnGoTo} ${_className}`}>
+      {children}
+    </Link>
   );
 };
 

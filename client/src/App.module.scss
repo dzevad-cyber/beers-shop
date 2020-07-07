@@ -1,0 +1,11 @@
+.app {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+}
+
+// 450px - mobile
+@media (max-width: 28.125rem) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+}

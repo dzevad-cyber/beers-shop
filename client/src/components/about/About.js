@@ -16,7 +16,7 @@ const About = () => {
         customers. The more content you provide about you and your business, the
         more confident people will be when purchasing from your store.
       </p>
-      <ImgBox src={aboutImg} customStyle={styles.imgSize} />
+      <ImgBox src={aboutImg} />
       <section className={styles.about__subsection}>
         <h4 className={styles.about__subtitle}>
           <span>our</span> <span>original</span> <span>recipe</span>

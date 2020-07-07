@@ -1,0 +1,36 @@
+.btn {
+  display: none;
+
+  &__txt {
+    color: var(--color-red-secondary);
+  }
+
+  &__icon {
+    fill: var(--color-red-secondary);
+    transition: all 0.2s ease;
+  }
+}
+
+// 450px - 28.125rem - mobile
+@media (max-width: 28.125rem) {
+  .btn {
+    all: unset;
+
+    width: 150px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-family: var(--red-hat-display);
+    font-weight: 900;
+    margin-bottom: 10rem;
+    cursor: pointer;
+    letter-spacing: 0.1rem;
+
+    display: grid;
+    justify-self: center;
+    justify-items: center;
+
+    &:hover &__icon {
+      transform: translateY(-5px);
+    }
+  }
+}

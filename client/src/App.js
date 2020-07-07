@@ -5,6 +5,12 @@ import styles from './App.module.scss';
 
 import Header from './features/header/Header';
 import HomePage from './pages/home-page/HomePage';
+import Footer from './components/footer/Footer';
+import BtnScrollToTopMobile from './components/btn-scroll-to-top-mobile/BtnScrollToTopMobile';
+import SignInPage from './pages/signin/SignInPage';
+import RegisterPage from './pages/register-page/RegisterPage';
+import ProductsPage from './components/products-page/ProductsPage';
+import ProductPage from './pages/product-page/ProductPage';
 
 function App() {
   return (
@@ -13,7 +19,13 @@ function App() {
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />
+          <Route exact path='/signin' component={SignInPage} />
+          <Route exact path='/register' component={RegisterPage} />
+          <Route exact path='/products' component={ProductsPage} />
+          <Route exact path='/product' component={ProductPage} />
         </Switch>
+        <Footer />
+        <BtnScrollToTopMobile>back to top</BtnScrollToTopMobile>
       </div>
     </Router>
   );

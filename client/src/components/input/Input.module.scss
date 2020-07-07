@@ -1,0 +1,45 @@
+.inputBox {
+  display: grid;
+  grid-row-gap: 1rem;
+
+  &__label {
+    text-transform: uppercase;
+    font-size: var(--fz-small);
+    font-family: var(--red-hat-display);
+    font-weight: 900;
+    letter-spacing: 0.1rem;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+  }
+
+  &__input {
+    all: unset;
+    background-color: #f7f8fa;
+    padding: 1rem;
+    font-size: var(--fz-medium);
+    font-family: var(--roboto-mono);
+    transition: all 0.2s ease;
+    border: 1px solid #ffff;
+
+    &:focus {
+      border-color: var(--color-red-secondary);
+      background-color: #ffffff;
+    }
+
+    &:focus::placeholder {
+      opacity: 0;
+    }
+  }
+
+  &__input::placeholder {
+    text-transform: capitalize;
+    letter-spacing: 0.08rem;
+  }
+
+  &__reqField {
+    font-family: var(--roboto-mono);
+    font-weight: 400;
+    text-transform: capitalize;
+  }
+}

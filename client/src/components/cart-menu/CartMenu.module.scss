@@ -1,19 +1,27 @@
 .cartMenu {
   position: absolute;
   top: 100%;
-  right: 0%;
+  right: 0;
+  z-index: 100;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+
   font-size: 1.4rem;
   letter-spacing: 0.1rem;
-  padding: 2rem;
   color: #777777;
   width: max-content;
   width: var(--menu-width);
 
   display: grid;
   grid-row-gap: 2rem;
-  justify-items: center;
   font-family: var(--roboto-mono);
+
+  &__main {
+    display: grid;
+    justify-items: center;
+    grid-row-gap: 2rem;
+    padding: 2rem;
+    background-color: #fff;
+  }
 }
 
 .icon {
@@ -24,4 +32,49 @@
 
 .txt {
   width: max-content;
+}
+
+.btnClose {
+  display: none;
+}
+
+.backdrop {
+  display: none;
+}
+
+// 450px - 28.125rem - mobile
+@media (max-width: 28.125rem) {
+  .cartMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 70vw;
+    height: 100vh;
+    background-color: #ffffff;
+
+    &__main {
+      grid-auto-rows: min-content;
+      grid-row-gap: 3rem;
+      background-color: #fff;
+      padding: 1rem;
+    }
+  }
+
+  .backdrop {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .btnClose {
+    display: block;
+    justify-self: end;
+    padding: 1rem;
+    border-radius: 100px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
 }

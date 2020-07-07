@@ -1,0 +1,66 @@
+.registerPage {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-content: center;
+  grid-row-gap: 3rem;
+  grid-template-columns: minmax(250px, 600px);
+  padding: 1rem;
+
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-family: var(--red-hat-display);
+    font-size: 34px;
+    justify-self: center;
+  }
+
+  &__subtitle {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: var(--red-hat-display);
+    letter-spacing: 0.1rem;
+  }
+
+  &__text {
+    all: unset;
+    font-size: 14px;
+    font-family: var(--roboto-mono);
+    text-transform: capitalize;
+    letter-spacing: 0.1rem;
+  }
+}
+
+.btnGoTo__create {
+  justify-self: start;
+  background-color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+.form__group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 250px);
+  align-items: end;
+  justify-content: space-between;
+  grid-auto-rows: min-content;
+  grid-row-gap: 2rem;
+}
+
+.warning {
+  cursor: pointer;
+  color: var(--color-red-secondary);
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--color-black);
+  }
+}
+
+// 450px - 28.125rem - mobile
+@media (max-width: 28.125rem) {
+  .registerPage {
+    &__title {
+      font-size: 24px;
+    }
+  }
+}

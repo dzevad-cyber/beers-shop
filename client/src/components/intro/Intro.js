@@ -16,7 +16,7 @@ const Intro = () => {
         </h3>
         <h5 className={styles.intro__subtitle}>Brewed in USA</h5>
       </section>
-      <ImgBox src={introBgImg} className={styles.intro__bgImg} />
+      <ImgBox src={introBgImg} _classNameBox={styles.intro__bgImg} />
     </section>
   );
 };

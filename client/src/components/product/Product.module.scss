@@ -12,6 +12,7 @@
     font-size: var(--fz-small);
     transition: all 0.2s ease;
     border-bottom: 1px solid transparent;
+    text-transform: capitalize;
 
     &:hover {
       color: var(--color-red-secondary);

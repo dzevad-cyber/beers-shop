@@ -16,6 +16,33 @@
   display: none;
 }
 
+.icon {
+  width: 20px;
+  height: 20px;
+
+  fill: #000000;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-column-gap: 2rem;
+  text-decoration: none;
+  text-transform: capitalize;
+
+  color: #777777;
+
+  transition: all 0.2s ease;
+}
+
+.link:hover .icon {
+  fill: tomato;
+}
+
+.link:hover {
+  color: #f64747;
+}
+
 // 800px - tablet
 @media (max-width: 50rem) {
   .header {

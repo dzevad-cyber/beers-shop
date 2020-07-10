@@ -1,6 +1,10 @@
 .imgBox {
+  display: grid;
+  align-content: center;
+
   &__img {
     width: 100%;
     height: auto;
+    // object-fit: contain;
   }
 }

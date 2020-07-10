@@ -5,11 +5,15 @@ import styles from './Header.module.scss';
 
 import logo from '../../assets/images/beers_logo_155x.png';
 
+import { ReactComponent as SigninSvg } from '../../assets/icons/person-24px.svg';
+import { ReactComponent as ShoppingCartSvg } from '../../assets/icons/shopping_cart-24px.svg';
+import { ReactComponent as RegisterSvg } from '../../assets/icons/https-24px.svg';
+
 import Button from '../button/Button';
-import Tooltip from '../../components/tooltip/Tooltip';
-import ButtonGroup from '../../components/button-group/ButtonGroup';
-import AccountMenu from '../../components/account-menu/AccountMenu';
-import CartMenu from '../../components/cart-menu/CartMenu';
+import Tooltip from '../tooltip/Tooltip';
+import ButtonGroup from '../button-group/ButtonGroup';
+import AccountMenu from '../account-menu/AccountMenu';
+import CartMenu from '../cart-menu/CartMenu';
 
 const Header = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -38,29 +42,23 @@ const Header = () => {
           <Button icon='shoppingCart' _onClick={toggleCartMenu} />
         </Tooltip>
         <AccountMenu toggle={showAccountMenu} _onClick={toggleAccountMenu}>
-          <Button
-            _onClick={toggleAccountMenu}
+          <Link
+            className={styles.link}
+            onClick={toggleAccountMenu}
             to='/signin'
-            txtColor='#777777'
-            icon='signin'
           >
-            sign in
-          </Button>
-          <Button
+            <SigninSvg className={styles.icon} /> sign in
+          </Link>
+          <Link
+            className={styles.link}
+            onClick={toggleAccountMenu}
             to='/register'
-            _onClick={toggleAccountMenu}
-            txtColor='#777777'
-            icon='register'
           >
-            register
-          </Button>
-          <Button
-            _onClick={toggleAccountMenu}
-            txtColor='#777777'
-            icon='shoppingCart'
-          >
-            view cart
-          </Button>
+            <RegisterSvg className={styles.icon} /> register
+          </Link>
+          <Link className={styles.link} onClick={toggleAccountMenu} to='/cart'>
+            <ShoppingCartSvg className={styles.icon} /> view cart
+          </Link>
         </AccountMenu>
         <CartMenu toggle={showCartMenu} _onClick={toggleCartMenu}></CartMenu>
       </ButtonGroup>

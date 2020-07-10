@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import styles from './HomePage.module.scss';
 
@@ -11,16 +13,31 @@ import ImgBox from '../../components/img-box/ImgBox';
 import KeepInTouch from '../../components/keep-in-touch/KeepInTouch';
 import InstaFeed from '../../components/insta-feed/InstaFeed';
 import BtnScrollTop from '../../components/btn-scroll-top/BtnScrollTop';
+import Product from '../../components/product/Product';
 
 import beersImg from '../../assets/images/beers_04_2048x.jpg';
 import { ReactComponent as ArrowRight } from '../../assets/icons/arrow_right_alt-24px.svg';
 
+import { selectProducts } from '../../store/productsSlice';
+
 const HomePage = () => {
+  const list = useSelector(selectProducts);
+
   return (
     <section className={styles.homePage}>
       <Intro />
       <ProductsBox>
-        <ProductsList _className={styles.productsList} />
+        <ProductsList _className={styles.productsList}>
+          {list.map((product, index) => (
+            <Link
+              key={index}
+              to={`/product/${product.id}`}
+              className={styles.productBox}
+            >
+              <Product product={product} />
+            </Link>
+          ))}
+        </ProductsList>
       </ProductsBox>
       <BtnGoTo _to='/products' _className={styles.btnGoTo}>
         see all beers

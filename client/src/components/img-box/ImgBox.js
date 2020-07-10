@@ -2,10 +2,14 @@ import React from 'react';
 
 import styles from './ImgBox.module.scss';
 
-const ImgBox = ({ src, className }) => {
+const ImgBox = ({ src, _classNameImg, _classNameBox }) => {
   return (
-    <div className={`${styles.imgBox} ${className}`}>
-      <img className={styles.imgBox__img} src={src} alt='product' />
+    <div className={`${styles.imgBox} ${_classNameBox}`}>
+      <img
+        className={`${styles.imgBox__img} ${_classNameImg}`}
+        src={src}
+        alt='product'
+      />
     </div>
   );
 };

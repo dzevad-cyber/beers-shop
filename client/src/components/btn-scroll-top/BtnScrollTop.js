@@ -5,7 +5,7 @@ import styles from './BtnScrollTop.module.scss';
 
 import { ReactComponent as ArrowUpSvg } from '../../assets/icons/keyboard_arrow_up-24px.svg';
 
-const BtnScrollTop = ({ children }) => {
+const BtnScrollTop = () => {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -31,7 +31,6 @@ const BtnScrollTop = ({ children }) => {
       smooth
     >
       <ArrowUpSvg className={styles.icon} />
-      <p className={styles.btnScrollTop__txt}>{children}</p>
     </Link>
   );
 };

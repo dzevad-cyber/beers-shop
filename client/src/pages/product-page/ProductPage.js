@@ -1,24 +1,34 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import styles from './ProductPage.module.scss';
 
 import ImgBox from '../../components/img-box/ImgBox';
 
-import beersImg from '../../assets/images/Craft_Beer_-_Cedar_600x.png';
 import Counter from '../../components/counter/Counter';
 
+import { selectProduct } from '../../store/productsSlice';
+
 const ProductPage = () => {
+  const { id } = useParams();
+  const { img, company, name, abv, wort, ibu, bottle, price } = useSelector(
+    selectProduct(id)
+  );
+
   return (
     <section className={styles.productPage}>
-      <ImgBox src={beersImg} />
+      <ImgBox src={img} _classNameImg={styles.productPage__img} />
       <section className={styles.productPage__info}>
-        <h4 className={styles.productPage__name}>Craft Beer - Oak</h4>
-        <h5 className={styles.productPage__price}>$3.99</h5>
+        <h4 className={styles.productPage__name}>
+          {company} - {name}
+        </h4>
+        <h5 className={styles.productPage__price}>${price}</h5>
         <section className={styles.productPage__ingredients}>
-          <p>ABV: 4,5%</p>
-          <p>WORT: 15,5%</p>
-          <p>IBU: 34</p>
-          <p>Bottle: 0,5</p>
+          <p>ABV: {abv}</p>
+          <p>WORT: {wort}%</p>
+          <p>IBU: {ibu}</p>
+          <p>Bottle: {bottle}</p>
         </section>
         <div className={styles.productPage__addToCartBox}>
           <Counter />

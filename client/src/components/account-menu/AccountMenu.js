@@ -7,7 +7,7 @@ import slide from '../../transitions/slide.module.scss';
 
 import { ReactComponent as ArrowRighSvg } from '../../assets/icons/arrow_right_alt-24px.svg';
 
-import Button from '../../features/button/Button';
+import Button from '../button/Button';
 import Backdrop from '../backdrop/Backdrop';
 
 const AccountMenu = ({ children, toggle, _onClick }) => {
@@ -18,7 +18,7 @@ const AccountMenu = ({ children, toggle, _onClick }) => {
 
         <section className={styles.accountMenu__main}>
           <Button className={styles.btnClose} onClick={_onClick}>
-            <ArrowRighSvg />
+            <ArrowRighSvg onClick={_onClick} />
           </Button>
           {children}
         </section>

@@ -10,9 +10,9 @@ const BtnScrollTop = () => {
 
   useEffect(() => {
     const checkScroll = () => {
-      if (!showButton && window.pageYOffset > 1000) {
+      if (!showButton && window.pageYOffset > 300) {
         setShowButton(true);
-      } else if (showButton && window.pageYOffset <= 1000) {
+      } else if (showButton && window.pageYOffset <= 300) {
         setShowButton(false);
       }
     };

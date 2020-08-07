@@ -1,0 +1,28 @@
+.product {
+  display: grid;
+
+  grid-template-columns: 20% 1fr min-content;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: var(--roboto-mono);
+
+  &__name {
+    font-size: var(--fz-small);
+    text-transform: capitalize;
+  }
+
+  &__price {
+    font-size: var(--fz-medium);
+    font-weight: 900;
+    color: var(--color-black);
+  }
+}
+
+.icon {
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    fill: var(--color-red);
+  }
+}

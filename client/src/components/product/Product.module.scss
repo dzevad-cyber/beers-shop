@@ -9,10 +9,11 @@
   &__name {
     font-family: var(--red-hat-display);
     font-weight: 900;
-    font-size: var(--fz-small);
+    font-size: 26px;
     transition: all 0.2s ease;
     border-bottom: 1px solid transparent;
     text-transform: capitalize;
+    text-align: center;
 
     &:hover {
       color: var(--color-red-secondary);
@@ -40,6 +41,15 @@
 
   &:hover &__name:hover {
     border-bottom: 1px solid red;
+  }
+}
+
+// 800px - 50rem - tablet
+@media (max-width: 50rem) {
+  .product {
+    &__name {
+      font-size: var(--fz-small);
+    }
   }
 }
 

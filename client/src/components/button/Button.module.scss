@@ -36,3 +36,21 @@
     color: #f64747 !important;
   }
 }
+
+.num {
+  position: absolute;
+  top: -15px;
+  left: 25px;
+
+  background-color: var(--color-red);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-family: var(--roboto-mono);
+  font-size: var(--fz-small);
+  color: #ffffff;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}

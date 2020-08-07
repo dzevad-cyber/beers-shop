@@ -15,12 +15,42 @@
   grid-row-gap: 2rem;
   font-family: var(--roboto-mono);
 
+  &__itemsList {
+    display: grid;
+    grid-row-gap: 2rem;
+  }
+
   &__main {
     display: grid;
     justify-items: center;
     grid-row-gap: 2rem;
     padding: 2rem;
     background-color: #fff;
+  }
+
+  &__empty {
+    display: grid;
+    justify-items: center;
+    padding: 2rem;
+    grid-row-gap: 2rem;
+  }
+
+  &__totalBox {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+
+    font-family: var(--red-hat-display);
+    font-weight: 900;
+    color: var(--color-black);
+  }
+
+  &__total {
+    font-size: var(--fz-small);
+  }
+
+  &__totalPrice {
+    font-size: var(--fz-medium);
   }
 }
 
@@ -77,4 +107,14 @@
       background-color: rgba(0, 0, 0, 0.2);
     }
   }
+}
+
+.menuItem {
+  list-style-type: none;
+}
+
+.link {
+  text-decoration: none;
+  justify-self: center;
+  color: var(--color-black);
 }

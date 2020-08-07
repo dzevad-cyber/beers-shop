@@ -1,0 +1,90 @@
+.checkboxBox {
+  display: grid;
+  grid-row-gap: 5rem;
+
+  &__checkbox {
+    display: none;
+  }
+
+  &__labelBox {
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 1rem;
+    align-items: center;
+  }
+
+  &__label {
+    display: grid;
+
+    width: 17px;
+    height: 17px;
+    background-color: #f7f8fa;
+    border: 1px solid #e9e7e7;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  &__icon {
+    width: 17px;
+    height: 17px;
+    transform: scale(0);
+    transition: all 0.3s ease;
+    fill: #ffffff;
+  }
+
+  &__text {
+    font-family: var(--roboto-mono);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  &__labelBox {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+  }
+
+  &__checkbox:checked + &__labelBox > &__label > &__icon {
+    transform: scale(1);
+    background-color: var(--color-red);
+  }
+
+  &__checkbox:checked ~ &__btn {
+    opacity: 1;
+  }
+
+  &__labelBox:hover > &__text {
+    color: var(--color-red);
+  }
+}
+
+.btn {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  background-color: var(--color-red);
+
+  padding: 1rem 3rem;
+  align-items: center;
+  font-size: var(--fz-large);
+  font-weight: 700;
+  text-transform: capitalize;
+  transition: all 0.3s ease;
+  font-family: var(--red-hat-display);
+  letter-spacing: 0.1rem;
+  cursor: auto;
+  opacity: 0.8;
+
+  &__enabled {
+    opacity: 1;
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--color-black);
+    }
+  }
+}

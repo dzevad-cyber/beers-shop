@@ -1,21 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { productAdded, cartPriceCalculated } from '../../store/cartSlice';
+import { Link } from 'react-router-dom';
 
 import styles from './ProductPage.module.scss';
 
 import ImgBox from '../../components/img-box/ImgBox';
-
 import Counter from '../../components/counter/Counter';
+import {
+  selectProduct,
+  selectRelatedProducts,
+} from '../../store/productsSlice';
 
-import { selectProduct } from '../../store/productsSlice';
+import {
+  selectProductFromCart,
+  selectCartTotalPrice,
+  selectCartTotalItems,
+  cartItemsCalculated,
+} from '../../store/cartSlice';
+
+import BtnAddToCart from '../../components/btn-add-to-cart/BtnAddToCart';
+import RelatedProducts from '../../components/related-products/RelatedProducts';
+import ProductsList from '../../components/products-list/ProductsList';
+import Product from '../../components/product/Product';
+import Backdrop from '../../componenst/backdrop/Backdrop';
+import ProductAddedCard from '../../components/products-added-card/ProductAddedCard';
 
 const ProductPage = () => {
   const { id } = useParams();
-  const { img, company, name, abv, wort, ibu, bottle, price } = useSelector(
-    selectProduct(id)
-  );
+  const product = useSelector(selectProduct(id));
+  const productFromCart = useSelector(selectProductFromCart(id));
+  const relatedProducts = useSelector(selectRelatedProducts(id));
+  const cartTotalItems = useSelector(selectCartTotalItems);
+  const cartTotalPrice = useSelector(selectCartTotalPrice);
+  const dispatch = useDispatch();
 
+  const [count, setCount] = useState(1);
+  const [toggleBackdrop, setToggleBackdrop] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  const onDecrementCount = () => {
+    if (count > 1) setCount(count - 1);
+  };
+
+  const onIncrementCount = () => setCount(count + 1);
+
+  const btnSetToggleBackdrop = () => setToggleBackdrop(!toggleBackdrop);
+
+  const { img, company, name, abv, wort, ibu, bottle, price } = product;
   return (
     <section className={styles.productPage}>
       <ImgBox src={img} _classNameImg={styles.productPage__img} />
@@ -31,9 +67,21 @@ const ProductPage = () => {
           <p>Bottle: {bottle}</p>
         </section>
         <div className={styles.productPage__addToCartBox}>
-          <Counter />
-          <button className={styles.productPage__btn}>add to cart</button>
+          <Counter
+            onIncrementCount={onIncrementCount}
+            onDecrementCount={onDecrementCount}
+            count={count}
+          />
+          <BtnAddToCart
+            _onClick={() => {
+              dispatch(productAdded({ ...product, count }));
+              dispatch(cartPriceCalculated());
+              dispatch(cartItemsCalculated());
+              setToggleBackdrop(!toggleBackdrop);
+            }}
+          />
         </div>
+
         <p className={styles.productPage__text}>
           We are proud to present our best premium Shopify theme - Wokiee.
         </p>
@@ -46,6 +94,31 @@ const ProductPage = () => {
           Please, take a look at feature list and compare with our competitors.
         </p>
       </section>
+      <RelatedProducts _className={styles.relatedProducts}>
+        <h3 className={styles.relatedProducts__title}>related products</h3>
+        <ProductsList _className={styles.productsList}>
+          {relatedProducts &&
+            relatedProducts.map((product, index) => (
+              <Link
+                key={index}
+                to={`/product/${product.id}`}
+                className={styles.productBox}
+              >
+                <Product product={product} />
+              </Link>
+            ))}
+        </ProductsList>
+      </RelatedProducts>
+      {toggleBackdrop && (
+        <Backdrop>
+          <ProductAddedCard
+            product={productFromCart}
+            cartTotalItems={cartTotalItems}
+            cartTotalPrice={cartTotalPrice}
+            setToggleBackdrop={btnSetToggleBackdrop}
+          />
+        </Backdrop>
+      )}
     </section>
   );
 };

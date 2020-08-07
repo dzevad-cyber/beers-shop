@@ -1,0 +1,88 @@
+.card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem 0;
+  background-color: #ffffff;
+
+  &__product {
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-row-gap: 1rem;
+    align-content: center;
+    justify-items: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+
+  &__title,
+  &__productCount,
+  &__productTotalPrice {
+    font-family: var(--red-hat-display);
+    font-weight: 900;
+    color: var(--color-black);
+  }
+
+  &__title {
+    font-size: 20px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 1rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__productName {
+    font-family: var(--roboto-mono);
+    font-size: var(--fz-small);
+    text-transform: capitalize;
+  }
+
+  &__productCount {
+    font-size: var(--fz-small);
+  }
+
+  &__productTotalPrice {
+    font-size: var(--fz-medium);
+  }
+
+  &__cartInfo {
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-row-gap: 2rem;
+    padding: 2rem;
+  }
+
+  &__cartText {
+    font-family: var(--roboto-mono);
+    font-size: var(--fz-small);
+    text-align: center;
+  }
+
+  &__cartTotalBox {
+    text-align: center;
+    font-family: var(--red-hat-display);
+  }
+
+  &__cartTotalText {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--color-black);
+  }
+
+  &__cartTotalAmount {
+    font-size: 24px;
+    color: var(--color-red);
+    font-weight: 900;
+  }
+}
+
+.icon {
+  fill: var(--color-red);
+  width: 35px;
+  height: 35px;
+}
+
+.img {
+  width: 150px;
+  //   height: 150px;
+}

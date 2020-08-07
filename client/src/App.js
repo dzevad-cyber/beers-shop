@@ -12,6 +12,7 @@ import RegisterPage from './pages/register-page/RegisterPage';
 import ProductsPage from './components/products-page/ProductsPage';
 import ProductPage from './pages/product-page/ProductPage';
 import CartPage from './pages/cart-page/CartPage';
+import BtnScrollTop from './components/btn-scroll-top/BtnScrollTop';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         </Switch>
         <Footer />
         <BtnScrollToTopMobile>back to top</BtnScrollToTopMobile>
+        <BtnScrollTop />
       </div>
     </Router>
   );

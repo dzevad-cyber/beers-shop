@@ -6,7 +6,6 @@ import ImgBox from '../img-box/ImgBox';
 const Product = ({
   product: { img, company, name, abv, wort, ibu, bottle, price },
 }) => {
-  console.log();
   return (
     <section className={styles.product}>
       <ImgBox src={img} />

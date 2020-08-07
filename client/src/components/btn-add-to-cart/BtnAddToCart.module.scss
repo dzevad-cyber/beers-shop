@@ -1,0 +1,17 @@
+.btnAddToCart {
+  all: unset;
+  font-size: 1.9rem;
+  padding: 0.5rem 3rem;
+  background-color: var(--color-red);
+  color: #ffffff;
+  font-family: var(--red-hat-display);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+  text-align: center;
+
+  &:hover {
+    background-color: var(--color-black);
+  }
+}

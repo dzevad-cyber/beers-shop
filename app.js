@@ -17,6 +17,15 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 // ROUTES
 app.use('/api/v1/products', productRouter);
 
+app.get('/test', (req, res) => {
+  console.log('in test . . .');
+  console.log('server is up');
+  res.status(200).json({
+    status: 'success',
+    data: { message: 'server is up' },
+  });
+});
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 

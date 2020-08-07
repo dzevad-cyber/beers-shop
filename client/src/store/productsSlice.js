@@ -29,7 +29,6 @@ export const selectRelatedProducts = id => state =>
   state.products.productsList.filter(product => product.id !== id);
 
 export const fetchProductsFromDb = () => async dispatch => {
-  console.log('hello world');
   try {
     const {
       data: {

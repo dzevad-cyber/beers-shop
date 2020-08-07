@@ -1,10 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import cedarImg from '../assets/images/Craft_Beer_-_Cedar_600x.png';
-import chestnutImg from '../assets/images/Craft_Beer_-_Chestnut_600x.png';
-import oakImg from '../assets/images/Craft_Beer_-_Oak_600x.png';
-
 export const productsSlice = createSlice({
   name: 'products',
   initialState: {

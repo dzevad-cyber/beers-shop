@@ -26,11 +26,13 @@ const HomePage = () => {
 
   console.log('homepage/list', list);
 
-  useEffect(async () => {
-    const {
-      data: { message },
-    } = await axios.get('/test');
-    console.log('message from server/', message);
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const response = await axios.get('/test');
+      console.log('message from server/', response);
+    };
+
+    fetchAPI();
     // dispatch(fetchProductsFromDb());
     window.scrollTo(0, 0);
   }, [dispatch]);

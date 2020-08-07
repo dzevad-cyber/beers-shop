@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "server": "nodemon server.js",
     "client": "cd client & npm start",
     "dev": "concurrently -n 'server,client' -c 'green,blue' \"nodemon server.js\" \"npm run client\"",
@@ -34,6 +35,7 @@
     "prettier": "^2.0.5"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": "12.6.x",
+    "npm": "6.13.x"
   }
 }

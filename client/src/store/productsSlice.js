@@ -15,7 +15,7 @@ export const productsSlice = createSlice({
     productsAdded: (state, { payload }) => {
       state.productsList = payload;
       payload.forEach(
-        (product) => (state.productsMap[`${product._id}`] = product)
+        product => (state.productsMap[`${product._id}`] = product)
       );
     },
   },
@@ -23,12 +23,13 @@ export const productsSlice = createSlice({
 
 export const { productsAdded } = productsSlice.actions;
 
-export const selectProducts = (state) => state.products.productsList;
-export const selectProduct = (id) => (state) => state.products.productsMap[id];
-export const selectRelatedProducts = (id) => (state) =>
-  state.products.productsList.filter((product) => product.id !== id);
+export const selectProducts = state => state.products.productsList;
+export const selectProduct = id => state => state.products.productsMap[id];
+export const selectRelatedProducts = id => state =>
+  state.products.productsList.filter(product => product.id !== id);
 
-export const fetchProductsFromDb = () => async (dispatch) => {
+export const fetchProductsFromDb = () => async dispatch => {
+  console.log('hello world');
   try {
     const {
       data: {

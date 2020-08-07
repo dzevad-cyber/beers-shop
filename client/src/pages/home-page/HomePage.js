@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import styles from './HomePage.module.scss';
 
@@ -25,8 +26,12 @@ const HomePage = () => {
 
   console.log('homepage/list', list);
 
-  useEffect(() => {
-    dispatch(fetchProductsFromDb());
+  useEffect(async () => {
+    const {
+      data: { message },
+    } = await axios.get('/test');
+    console.log('message from server/', message);
+    // dispatch(fetchProductsFromDb());
     window.scrollTo(0, 0);
   }, [dispatch]);
 

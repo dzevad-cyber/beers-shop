@@ -1,6 +1,14 @@
 require('dotenv').config({ path: './config.env' });
 const mongoose = require('mongoose');
 
+process.on('uncaughtException', err => {
+  console.log('UNHANDLED REJECTION! SHUTTING DOWN!!!');
+  console.log(err.name, err.message);
+  console.log(err.stack);
+
+  process.exit(1);
+});
+
 const app = require('./app');
 
 const DB = process.env.DATABASE.replace(
@@ -12,10 +20,20 @@ mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true,
     useFindAndModify: false,
+    useUnifiedTopology: true,
   })
   .then(() => console.log('DB connection successful!'));
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server is listening on port ${port}`));
+const server = app.listen(port, () =>
+  console.log(`Server started on port port`)
+);
+
+process.on('unhandledRejection', err => {
+  console.log('UNHANDLED REJECTION! SHUTTING DOWN!!!');
+  console.log(err.name, err.message);
+  console.log(err.stack);
+
+  server.close(() => process.exit(1));
+});

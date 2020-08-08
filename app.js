@@ -2,50 +2,53 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const hpp = require('hpp');
+const rateLimit = require('express-rate-limit');
+const xss = require('xss-clean');
 
+const globalErrorHandler = require('./utils/globalErrorHandler');
 const productRouter = require('./routes/productRoutes');
+const AppErr = require('./utils/appError');
 
-// start express app
+const userRouter = require('./routes/userRoutes');
+
 const app = express();
 
-// MIDDLEWARES
+// ---------- GLOBAL MIDDLEWARES --------------
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
+app.use(helmet());
+app.use(express.json({ limit: '10kb' }));
+app.use(mongoSanitize());
+app.use(xss());
+app.use(hpp());
+const limiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 100,
+  message: 'Too many request from this IP. Please try again in an hour.',
+});
+app.use('/api', limiter);
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
-// ROUTES
+// ---------- ROUTES --------------
 app.use('/api/v1/products', productRouter);
-
-app.get('/test', (req, res) => {
-  console.log('in test . . .');
-  console.log('server is up');
-  res.status(200).json({
-    status: 'success',
-    data: { message: 'server is up' },
-  });
-});
+app.use('/api/v1/users', userRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
-    res.sendfile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.,html'));
   });
 }
 
-app.all('*', (req, res) => {
-  res.status(400).json({
-    status: 'fail',
-    message: `Cant find ${req.originalUrl} on this server!`,
-  });
+app.all('*', (req, res, next) => {
+  next(new AppErr(`Cant find ${req.originalUrl} on this server`, 404));
 });
 
-app.use((error, req, res, next) => {
-  res.status(400).json({
-    status: 'fail',
-    message: 'fail',
-  });
-});
+app.use(globalErrorHandler);
 
 module.exports = app;

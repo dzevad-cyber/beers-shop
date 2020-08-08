@@ -5,4 +5,4 @@ const Form = ({ children, _className }) => {
   return <form className={`${styles.form} ${_className}`}>{children}</form>;
 };
 
-export default Form;
+export default React.memo(Form);

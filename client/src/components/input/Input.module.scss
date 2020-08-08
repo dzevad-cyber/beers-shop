@@ -42,4 +42,10 @@
     font-weight: 400;
     text-transform: capitalize;
   }
+
+  &__inputError {
+    font-size: var(--fz-extra-small);
+    color: var(--color-red-secondary);
+    font-family: var(--roboto-mono);
+  }
 }

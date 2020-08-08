@@ -16,4 +16,4 @@ const BtnGoTo = ({ children, _className, _to, _onClick }) => {
   );
 };
 
-export default BtnGoTo;
+export default React.memo(BtnGoTo);

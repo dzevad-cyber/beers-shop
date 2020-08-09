@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -26,7 +27,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Please enter password.'],
-    minlength: [8, 'Passwrod must be between 8-30 charachters.'],
+    minlength: [1, 'Passwrod must be between 8-30 charachters.'],
     maxlength: [30, 'Passwrod must be between 8-30 charachters.'],
     select: false,
   },
@@ -45,6 +46,13 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user',
   },
+});
+
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+
+  this.password = await bcrypt.hash(this.password, 12);
+  this.passwordConfirm = undefined;
 });
 
 const User = mongoose.model('User', userSchema);

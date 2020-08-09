@@ -5,9 +5,18 @@ const dbCastErrHandler = err =>
 
 const dbDuplicateKeyErrHandler = err => {
   const duplicateValue = Object.keys(err.keyValue);
-  const message = `Duplicate field: ${duplicateValue}. Please use another value.`;
+  let message;
 
-  return new AppErr(message, 400);
+  if (err.keyValue.email) {
+    message = 'User already exists.';
+  } else {
+    message = `Duplicate field: ${duplicateValue}. Please use another value.`;
+  }
+
+  const modifiedError = new AppErr(message, 400);
+  modifiedError.errors = {};
+
+  return modifiedError;
 };
 
 const dbValidationErrHandler = err => {

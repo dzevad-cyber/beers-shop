@@ -8,11 +8,12 @@ import Form from '../../components/form/Form';
 import Input from '../../components/input/Input';
 import BtnGoTo from '../../components/btn-go-to/BtnGoTo';
 
-import { signup, selectUserErrors } from '../../store/userSlice';
+import { signup, selectUserErrors, selectUser } from '../../store/userSlice';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const _userErrors = useSelector(selectUserErrors);
+  const _user = useSelector(selectUser);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -26,20 +27,26 @@ const RegisterPage = () => {
   const _onChangePassword = e => setPassword(e.target.value);
   const _onChangePasswordConfirm = e => setPasswordConfirm(e.target.value);
 
-  const user = {
-    firstName,
-    lastName,
-    email,
-    password,
-    passwordConfirm,
-  };
+  const user = { firstName, lastName, email, password, passwordConfirm };
+
+  // console.log('user/', _user);
+  // let popup;
+  // if (_user) {
+  //   popup = <p>Account sucessfuly created. Please check your email.</p>;
+  // } else if (_userErrors) {
+  //   popup = _userErrors.message;
+  // }
 
   const { errors, message } = _userErrors;
   return (
     <section className={styles.registerPage}>
       <h2 className={styles.registerPage__title}>create account</h2>
-      {message && (
+      {!_user ? (
         <div className={styles.registerPage__errorMessage}>{message}</div>
+      ) : (
+        <div className={styles.registerPage__successMsg}>
+          Account sucessfuly created. Please check your email.
+        </div>
       )}
       <Form>
         <h3 className={styles.registerPage__subtitle}>personal information</h3>
@@ -51,6 +58,7 @@ const RegisterPage = () => {
           _placeholder="enter first name"
           _fn={_onChangeFirstName}
           _error={errors.firstName ? errors.firstName : ''}
+          _id="1"
         />
         <Input
           _label="last name"
@@ -59,6 +67,7 @@ const RegisterPage = () => {
           _placeholder="enter last name"
           _fn={_onChangeLastName}
           _error={errors.lastName ? errors.lastName : ''}
+          _id="2"
         />
         <Input
           _label="e-mail"
@@ -67,22 +76,25 @@ const RegisterPage = () => {
           _type="email"
           _fn={_onChangeEmail}
           _error={errors.email ? errors.email : ''}
+          _id="3"
         />
         <Input
           _label="password"
           _placeholder="enter password"
           _required={true}
-          _type="email"
+          _type="password"
           _fn={_onChangePassword}
           _error={errors.password ? errors.password : ''}
+          _id="4"
         />
         <Input
           _label="confirm password"
           _placeholder="enter password"
           _required={true}
-          _type="email"
+          _type="password"
           _fn={_onChangePasswordConfirm}
           _error={errors.passwordConfirm ? errors.passwordConfirm : ''}
+          _id="5"
         />
         <div className={styles.form__group}>
           <BtnGoTo

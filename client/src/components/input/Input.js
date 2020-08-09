@@ -10,10 +10,11 @@ const Input = ({
   _reqFieldsTxt,
   _fn,
   _error,
+  _id,
 }) => {
   return (
     <section className={styles.inputBox}>
-      <label className={styles.inputBox__label} htmlFor="input">
+      <label className={styles.inputBox__label} htmlFor={_id}>
         <div>
           {_label} {_required && <span>*</span>}
         </div>
@@ -23,7 +24,7 @@ const Input = ({
       </label>
       <input
         className={styles.inputBox__input}
-        id="input"
+        id={_id}
         type={_type}
         placeholder={_placeholder}
         onChange={_fn}

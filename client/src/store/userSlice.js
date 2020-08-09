@@ -4,42 +4,46 @@ import axios from 'axios';
 export const cartSlice = createSlice({
   name: 'user',
   initialState: {
-    user: {},
+    user: null,
     userErrors: {
       errors: {},
       message: '',
     },
   },
   reducers: {
-    userUpdated: (state, user) => {
-      // state.
+    userSignedup: (state, { payload: { user }, type }) => {
+      state.userErrors.errors = {};
+      state.message = '';
+      state.user = user;
     },
-    userErrors: (state, action) => {
-      const { errors, message } = action.payload;
+    userErrorsSet: (state, { payload: { errors, message }, type }) => {
       const { userErrors } = state;
-      if (errors) userErrors.errors = errors;
+      userErrors.errors = errors;
+      // if (errors) userErrors.errors = errors;
       userErrors.message = message;
     },
   },
 });
 
 // export actions
-export const { userErrors } = cartSlice.actions;
+export const { userErrorsSet, userSignedup } = cartSlice.actions;
 
 // thunk
 export const signup = user => async dispatch => {
   // activate loader
   try {
-    const response = await axios.post('/api/v1/users/signup', user);
+    const {
+      data: { data },
+    } = await axios.post('/api/v1/users/signup', user);
 
-    console.log(response);
+    dispatch(userSignedup(data));
   } catch (err) {
-    dispatch(userErrors(err.response.data));
+    dispatch(userErrorsSet(err.response.data));
   }
 };
-
 // selectors
 export const selectUserErrors = state => state.user.userErrors;
+export const selectUser = state => state.user.user;
 
 // export default
 export default cartSlice.reducer;

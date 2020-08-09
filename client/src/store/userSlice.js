@@ -32,13 +32,22 @@ export const { userErrorsSet, userSignedup } = cartSlice.actions;
 export const signup = user => async dispatch => {
   // activate loader
   try {
+    const response = await axios.post('/api/v1/users/signup', user);
+    // const {
+    //   data: { data },
+    // } = await axios.post('/api/v1/users/signup', user);
+
     const {
       data: { data },
-    } = await axios.post('/api/v1/users/signup', user);
-
+    } = response;
     dispatch(userSignedup(data));
   } catch (err) {
-    dispatch(userErrorsSet(err.response.data));
+    if (process.env.NODE_ENV === 'production') {
+      console.log('production');
+      dispatch(userErrorsSet(err.response.data));
+    } else {
+      console.log('development/', err.response);
+    }
   }
 };
 // selectors

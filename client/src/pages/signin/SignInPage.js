@@ -18,7 +18,7 @@ const SignInPage = () => {
           through the checkout process faster, store multiple shipping
           addresses, view and track your orders in your account and more.
         </p>
-        <BtnGoTo _to='/register' _className={styles.btnGoTo__account}>
+        <BtnGoTo _to="/register" _className={styles.btnGoTo__account}>
           create an account
         </BtnGoTo>
       </section>
@@ -29,17 +29,17 @@ const SignInPage = () => {
             If you have an account with us, please log in.
           </p>
           <Input
-            _label='e-mail'
-            _placeholder='enter e-mail'
+            _label="e-mail"
+            _placeholder="enter e-mail"
             _required={true}
-            _type='email'
-            _reqFieldsTxt='* Required Fields'
+            _type="email"
+            _reqFieldsTxt="* Required Fields"
           />
           <Input
-            _label='password'
-            _placeholder='enter password'
+            _label="password"
+            _placeholder="enter password"
             _required={true}
-            _type='email'
+            _type="email"
           />
           <div className={styles.form__group}>
             <BtnGoTo _className={styles.btnGoTo__login}>login</BtnGoTo>
@@ -47,7 +47,7 @@ const SignInPage = () => {
               onClick={() => setToggle(!toggle)}
               className={`${styles.signInPage__text} ${styles.warning}`}
             >
-              Lost your password?
+              Forgot your password?
             </span>
           </div>
         </Form>
@@ -59,11 +59,11 @@ const SignInPage = () => {
             We will send you an email to reset your password.
           </p>
           <Input
-            _label='e-mail'
-            _placeholder='enter e-mail'
+            _label="e-mail"
+            _placeholder="enter e-mail"
             _required={true}
-            _type='email'
-            _reqFieldsTxt='* Required Fields'
+            _type="email"
+            _reqFieldsTxt="* Required Fields"
           />
           <div className={styles.form__group}>
             <BtnGoTo _className={styles.btnGoTo__login}>submit</BtnGoTo>

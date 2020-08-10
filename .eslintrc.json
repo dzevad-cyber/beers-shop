@@ -7,11 +7,12 @@
     "consistent-return": "off",
     "no-param-reassign": "off",
     "no-process-exit": "off",
+    "no-return-await": "off",
+    "class-methods-use-this": "off",
+
     "func-names": "off",
     "no-underscore-dangle": "off"
     // "object-shorthand": "off",
-    // "no-return-await": "off",
     // "prefer-destructuring": "off",
-    // "class-methods-use-this": "warn"
   }
 }

@@ -46,14 +46,28 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user',
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
+// document middleware
 userSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
 
   this.password = await bcrypt.hash(this.password, 12);
   this.passwordConfirm = undefined;
 });
+
+// instance methods
+userSchema.methods.correctPassword = async function (candidatePass, userPass) {
+  return await bcrypt.compare(candidatePass, userPass);
+};
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

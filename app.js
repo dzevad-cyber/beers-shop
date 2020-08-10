@@ -51,4 +51,6 @@ app.all('*', (req, res, next) => {
 
 app.use(globalErrorHandler);
 
+console.log('//node_env//', process.env.NODE_ENV);
+
 module.exports = app;

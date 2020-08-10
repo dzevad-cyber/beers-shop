@@ -43,7 +43,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     'host'
   )}/api/v1/users/account/confirm/${token}`;
 
-  await new Email(user, url).sendWelcome();
+  console.log('url//', url);
+  await new Email(user, `http://127.0.0.1:3000/signin`).sendWelcome();
 
   // createSendToken(user, 201, res);
   res.status(200).json({
@@ -63,15 +64,18 @@ exports.login = catchAsync(async (req, res, next) => {
   }
   const user = await User.findOne({ email }).select('+password');
 
-  if (!user.isVerified) {
-    return next(new AppError('Account not verified', 401));
-  }
-
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));
   }
 
-  if (!user.isVerified) return next(new AppError("You're not verified.", 401));
+  if (!user.isVerified) {
+    return next(
+      new AppError(
+        "You're account has not been verified. Please check your email.",
+        401
+      )
+    );
+  }
 
   createSendToken(user, 200, res);
 });

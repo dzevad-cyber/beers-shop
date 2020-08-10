@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const htmlToText = require('html-to-text');
+const pug = require('pug');
 
 module.exports = class Email {
   constructor(user, url) {
@@ -33,9 +34,13 @@ module.exports = class Email {
   }
 
   async send(template, subject) {
-    const html = `<h1>Welcome</h1>
-    <a href="${this.url}">Visit W3Schools.com!</a>
-    `;
+    // 1) Render HTML based on a pug template
+    const html = pug.renderFile(`${__dirname}/../templates/email/${template}.pug`, {
+      firstName: this.firstName,
+      url: this.url,
+      subject,
+    });
+
     const mailOptions = {
       from: this.from,
       to: this.to,
@@ -48,6 +53,6 @@ module.exports = class Email {
   }
 
   async sendWelcome() {
-    await this.send('welcome', 'Welcome to the Beers-shop!');
+    await this.send('confirmation', 'Account verification!');
   }
 };

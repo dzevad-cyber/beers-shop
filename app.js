@@ -51,11 +51,4 @@ app.all('*', (req, res, next) => {
 
 app.use(globalErrorHandler);
 
-console.log('hello world');
-console.log('hello world');
-console.log('hello world');
-console.log('hello world');
-console.log('hello world');
-console.log('hello world');
-
 module.exports = app;

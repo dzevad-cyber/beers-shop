@@ -50,6 +50,7 @@ module.exports = class Email {
     };
 
     await this.newTransport().sendMail(mailOptions);
+    console.log('email sent');
   }
 
   async sendWelcome() {

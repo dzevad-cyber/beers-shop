@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './config.env' });
+require('dotenv').config();
 const mongoose = require('mongoose');
 
 process.on('uncaughtException', err => {
@@ -11,7 +11,7 @@ process.on('uncaughtException', err => {
 
 const app = require('./app');
 
-const DB = process.enEv.DATABASE.replace(
+const DB = process.enErv.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );

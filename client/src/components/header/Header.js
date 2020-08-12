@@ -76,7 +76,7 @@ const Header = () => {
           </Link>
         </AccountMenu>
         <CartMenu toggle={showCartMenu} _onClick={toggleCartMenu}></CartMenu>
-        {user.isVerified && (
+        {user && (
           <Link to="/profile" className={styles.header__user}>
             Welcome {user.firstName}
           </Link>

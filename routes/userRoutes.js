@@ -10,7 +10,7 @@ router.route('/login').post(authController.login);
 
 router.route('/account/confirm/:token').get(authController.confirmAccount);
 
-router.route('/resend').post(authController.resendToken);
+router.route('/resend-token').post(authController.resendToken);
 
 router.route('/').get(userController.getAllUsers);
 

@@ -10,6 +10,15 @@
   &__logo {
     justify-self: start;
   }
+
+  &__user {
+    all: unset;
+    color: var(--color-black);
+    font-size: var(--fz-medium);
+    font-family: var(--red-hat-display);
+    font-weight: 900;
+    cursor: pointer;
+  }
 }
 
 .btnClose {

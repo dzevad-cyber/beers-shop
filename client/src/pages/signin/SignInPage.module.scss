@@ -42,6 +42,17 @@
     letter-spacing: 0.1rem;
     text-transform: capitalize;
   }
+
+  &__notification {
+    grid-column: 1 / -1;
+
+    display: grid;
+    font-size: var(--fz-medium);
+    font-family: var(--roboto-mono);
+    justify-items: center;
+    color: var(--color-red);
+    text-align: center;
+  }
 }
 
 .btnGoTo__account {

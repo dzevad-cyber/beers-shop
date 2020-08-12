@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,12 +8,21 @@ import Form from '../../components/form/Form';
 import Input from '../../components/input/Input';
 import BtnGoTo from '../../components/btn-go-to/BtnGoTo';
 
-import { signup, selectUserErrors, selectUser } from '../../store/userSlice';
+import {
+  signup,
+  selectErrors,
+  selectMessage,
+  errorsCleard,
+} from '../../store/userSlice';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
-  const _userErrors = useSelector(selectUserErrors);
-  const _user = useSelector(selectUser);
+  const errors = useSelector(selectErrors);
+  const message = useSelector(selectMessage);
+
+  useEffect(() => {
+    dispatch(errorsCleard());
+  }, [dispatch]);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -29,25 +38,12 @@ const RegisterPage = () => {
 
   const user = { firstName, lastName, email, password, passwordConfirm };
 
-  // console.log('user/', _user);
-  // let popup;
-  // if (_user) {
-  //   popup = <p>Account sucessfuly created. Please check your email.</p>;
-  // } else if (_userErrors) {
-  //   popup = _userErrors.message;
-  // }
+  const onSignup = () => dispatch(signup(user));
 
-  const { errors, message } = _userErrors;
   return (
     <section className={styles.registerPage}>
       <h2 className={styles.registerPage__title}>create account</h2>
-      {!_user ? (
-        <div className={styles.registerPage__errorMessage}>{message}</div>
-      ) : (
-        <div className={styles.registerPage__successMsg}>
-          Account sucessfuly created. Please check your email.
-        </div>
-      )}
+      {message && <div className={styles.registerPage__message}>{message}</div>}
       <Form>
         <h3 className={styles.registerPage__subtitle}>personal information</h3>
         <Input
@@ -97,10 +93,7 @@ const RegisterPage = () => {
           _id="5"
         />
         <div className={styles.form__group}>
-          <BtnGoTo
-            _onClick={() => dispatch(signup(user))}
-            _className={styles.btnGoTo__create}
-          >
+          <BtnGoTo _onClick={onSignup} _className={styles.btnGoTo__create}>
             create
           </BtnGoTo>
           <Link

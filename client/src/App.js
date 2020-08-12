@@ -13,6 +13,8 @@ import ProductsPage from './components/products-page/ProductsPage';
 import ProductPage from './pages/product-page/ProductPage';
 import CartPage from './pages/cart-page/CartPage';
 import BtnScrollTop from './components/btn-scroll-top/BtnScrollTop';
+import VerifyAccountPage from './pages/verify-account/VerifyAccountPage';
+import ProfilePage from './pages/profile/ProfilePage';
 
 function App() {
   return (
@@ -20,12 +22,18 @@ function App() {
       <div className={styles.app}>
         <Header />
         <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route exact path='/signin' component={SignInPage} />
-          <Route exact path='/register' component={RegisterPage} />
-          <Route exact path='/products' component={ProductsPage} />
-          <Route exact path='/product/:id' component={ProductPage} />
-          <Route exact path='/cart' component={CartPage} />
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/signin" component={SignInPage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/products" component={ProductsPage} />
+          <Route exact path="/product/:id" component={ProductPage} />
+          <Route exact path="/cart" component={CartPage} />
+          <Route path="/profile" component={ProfilePage} />
+          <Route
+            exact
+            path="/account/verify/:token"
+            component={VerifyAccountPage}
+          />
         </Switch>
         <Footer />
         <BtnScrollToTopMobile>back to top</BtnScrollToTopMobile>

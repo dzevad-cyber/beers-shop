@@ -1,0 +1,13 @@
+.verifyAccount {
+  grid-column: 2 / 3;
+}
+
+.success {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  padding: 3rem;
+  margin-bottom: 3rem;
+  font-size: var(--fz-medium);
+  font-family: var(--roboto-mono);
+}

@@ -24,6 +24,7 @@ const createSendToken = (user, statuCode, res) => {
 
   res.cookie('jwt', token, cookieOptions);
 
+  user.password = undefined;
   res.status(200).json({
     status: 'success',
     token,
@@ -39,39 +40,50 @@ exports.signup = catchAsync(async (req, res, next) => {
     token: signToken(user),
   });
 
-  const url = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/account/confirm/${token}`;
+  // if (process.env.NODE_ENV === 'production') {
+  // } else {
+  //   const url = `${req.protocol}://${req.get(
+  //     'host'
+  //   )}/api/v1/users/account/confirm/${token}`;
 
-  console.log('url//', url);
-  await new Email(user, `http://127.0.0.1:3000/signin`).sendWelcome();
+  //   await new Email(user, url).sendWelcome();
+  // }
 
-  // createSendToken(user, 201, res);
+  const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
+
+  await new Email(user, url).sendWelcome();
+
   res.status(200).json({
     status: 'success',
-    data: {
-      user,
-      token,
-      message: `Verification email has been sent to ${user.email}`,
-    },
+    data: { message: `Verification email has been sent to ${user.email}` },
   });
 });
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
+
   if (!email && !password) {
     return next(new AppError('Please provide email and password.', 400));
   }
   const user = await User.findOne({ email }).select('+password');
 
   if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(new AppError('Incorrect email or password', 401));
+    return next(new AppError('Incorrect email or password', 400));
   }
 
   if (!user.isVerified) {
+    const { token } = await Token.create({
+      _userId: user._id,
+      token: signToken(user._id),
+    });
+
+    const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
+
+    await new Email(user, url).sendWelcome();
+
     return next(
       new AppError(
-        "You're account has not been verified. Please check your email.",
+        "You're account has not been verified. Please check your email. Verification email has been sent to you.",
         401
       )
     );
@@ -96,4 +108,26 @@ exports.confirmAccount = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-exports.resendToken = catchAsync(async (req, res, next) => {});
+exports.resendToken = catchAsync(async (req, res, next) => {
+  const { email } = req.body;
+  if (!email) return next(new AppError('Please enter an email.', 400));
+
+  const user = await User.findOne({ email });
+  if (!user) return next(new AppError('Account not found.', 400));
+  if (user.isVerified) {
+    return next(new AppError('Account has been verified', 400));
+  }
+
+  const token = await Token.create({
+    _userId: user._id,
+    token: signToken(user._id),
+  });
+
+  const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
+
+  await new Email(user, url).sendWelcome();
+  res.status(200).json({
+    status: 'success',
+    data: { message: `A verification email has been sent to ${user.email}` },
+  });
+});

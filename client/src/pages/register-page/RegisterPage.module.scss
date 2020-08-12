@@ -29,14 +29,7 @@
     letter-spacing: 0.1rem;
   }
 
-  &__errorMessage {
-    font-size: var(--fz-extra-small);
-    font-family: var(--roboto-mono);
-    justify-self: center;
-    color: var(--color-red-secondary);
-  }
-
-  &__successMsg {
+  &__message {
     font-size: var(--fz-extra-small);
     font-family: var(--roboto-mono);
     justify-self: center;

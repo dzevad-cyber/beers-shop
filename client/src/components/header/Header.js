@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+// import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 
@@ -19,6 +20,11 @@ import CartMenu from '../cart-menu/CartMenu';
 
 import { selectCartTotalItems } from '../../store/cartSlice';
 
+let user = null;
+if (localStorage.getItem('user')) {
+  user = JSON.parse(localStorage.getItem('user'));
+}
+
 const Header = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showCartMenu, setShowCartMenu] = useState(false);
@@ -35,15 +41,15 @@ const Header = () => {
   };
 
   return (
-    <header className={styles.header} id='header-main'>
-      <Link to='/'>
-        <img className={styles.header__logo} src={logo} alt='logo' />
+    <header className={styles.header} id="header-main">
+      <Link to="/">
+        <img className={styles.header__logo} src={logo} alt="logo" />
       </Link>
       <ButtonGroup>
-        <Tooltip text='my account'>
+        <Tooltip text="my account">
           <Button icon={<AccountSvg />} _onClick={toggleAccountMenu} />
         </Tooltip>
-        <Tooltip text='cart'>
+        <Tooltip text="cart">
           <Button
             num={cartTotalItems}
             icon={<ShoppingCartSvg />}
@@ -54,22 +60,27 @@ const Header = () => {
           <Link
             className={styles.link}
             onClick={toggleAccountMenu}
-            to='/signin'
+            to="/signin"
           >
             <SigninSvg className={styles.icon} /> sign in
           </Link>
           <Link
             className={styles.link}
             onClick={toggleAccountMenu}
-            to='/register'
+            to="/register"
           >
             <RegisterSvg className={styles.icon} /> register
           </Link>
-          <Link className={styles.link} onClick={toggleAccountMenu} to='/cart'>
+          <Link className={styles.link} onClick={toggleAccountMenu} to="/cart">
             <ShoppingCartSvg className={styles.icon} /> view cart
           </Link>
         </AccountMenu>
         <CartMenu toggle={showCartMenu} _onClick={toggleCartMenu}></CartMenu>
+        {user.isVerified && (
+          <Link to="/profile" className={styles.header__user}>
+            Welcome {user.firstName}
+          </Link>
+        )}
       </ButtonGroup>
     </header>
   );

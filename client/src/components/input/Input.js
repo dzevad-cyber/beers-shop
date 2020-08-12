@@ -25,7 +25,7 @@ const Input = ({
       <input
         className={styles.inputBox__input}
         id={_id}
-        type={_type}
+        type={_type ? _type : 'text'}
         placeholder={_placeholder}
         onChange={_fn}
       />

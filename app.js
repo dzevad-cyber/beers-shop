@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
 const xss = require('xss-clean');
+const cookieParser = require('cookie-parser');
 
 const globalErrorHandler = require('./utils/globalErrorHandler');
 const productRouter = require('./routes/productRoutes');
@@ -20,6 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(cookieParser());
 app.use(helmet());
 app.use(express.json({ limit: '10kb' }));
 app.use(mongoSanitize());

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/userModel');
@@ -40,22 +41,19 @@ exports.signup = catchAsync(async (req, res, next) => {
     token: signToken(user),
   });
 
-  // if (process.env.NODE_ENV === 'production') {
-  // } else {
-  //   const url = `${req.protocol}://${req.get(
-  //     'host'
-  //   )}/api/v1/users/account/confirm/${token}`;
+  const url = `${req.protocol}://${req.get(
+    'host'
+  )}/api/v1/users/account/confirm/${token}`;
 
-  //   await new Email(user, url).sendWelcome();
-  // }
-
-  const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
+  // const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
 
   await new Email(user, url).sendWelcome();
 
   res.status(200).json({
     status: 'success',
-    data: { message: `Verification email has been sent to ${user.email}` },
+    data: {
+      message: `Verification email has been sent to ${user.email}`,
+    },
   });
 });
 
@@ -82,10 +80,7 @@ exports.login = catchAsync(async (req, res, next) => {
     await new Email(user, url).sendWelcome();
 
     return next(
-      new AppError(
-        "You're account has not been verified. Please check your email. Verification email has been sent to you.",
-        401
-      )
+      new AppError('Please check your email to verify your account.', 401)
     );
   }
 
@@ -131,3 +126,41 @@ exports.resendToken = catchAsync(async (req, res, next) => {
     data: { message: `A verification email has been sent to ${user.email}` },
   });
 });
+
+exports.logout = catchAsync(async (req, res, next) => {
+  res.clearCookie('jwt');
+
+  res.status(200).json({
+    status: 'success',
+    data: null,
+  });
+});
+
+// MIDDLEWARES
+exports.protect = catchAsync(async (req, res, next) => {
+  const { jwt: token } = req.cookies;
+  if (!token) return next(new AppError('Please log in.', 401));
+
+  const verifiedToken = await promisify(jwt.verify)(
+    token,
+    process.env.JWT_SECRET
+  );
+
+  const user = await User.findById(verifiedToken.id);
+  if (!user) return next(new AppError('User not found.', 401));
+
+  if (user.passwordChanged(verifiedToken.iat)) {
+    return next(new AppError('Password chenged. Please login again.', 401));
+  }
+
+  req.user = user;
+  next();
+});
+
+exports.restritTo = (...roles) => (req, res, next) => {
+  if (!roles.includes(req.user.role)) {
+    return next(new AppError('Permision denied!', 403));
+  }
+
+  next();
+};

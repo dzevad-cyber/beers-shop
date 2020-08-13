@@ -54,6 +54,9 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  passwordResetToken: String,
+  passwordResetExpires: Date,
+  passwordChangedAt: Date,
 });
 
 // document middleware
@@ -67,6 +70,18 @@ userSchema.pre('save', async function () {
 // instance methods
 userSchema.methods.correctPassword = async function (candidatePass, userPass) {
   return await bcrypt.compare(candidatePass, userPass);
+};
+
+userSchema.methods.passwordChanged = function (jwtTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+
+    return jwtTimestamp < changedTimestamp;
+  }
+  return false;
 };
 
 const User = mongoose.model('User', userSchema);

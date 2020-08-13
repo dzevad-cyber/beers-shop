@@ -76,9 +76,8 @@ const Header = () => {
           </Link>
         </AccountMenu>
         <CartMenu toggle={showCartMenu} _onClick={toggleCartMenu}></CartMenu>
-        {/* user is updated . . . */}
         {user && (
-          <Link to="/profile" className={styles.header__user}>
+          <Link to="/profile/about" className={styles.header__user}>
             Welcome {user.firstName}
           </Link>
         )}

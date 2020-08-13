@@ -88,7 +88,7 @@ export const login = user => async dispatch => {
 export const verifyAccount = token => async dispatch => {
   // laoder
   try {
-    const { data } = await axios.get(`/api/v1/users/account/confirm/${token}`);
+    await axios.get(`/api/v1/users/account/confirm/${token}`);
 
     dispatch(accountVerified("You're account has been verified"));
   } catch (err) {

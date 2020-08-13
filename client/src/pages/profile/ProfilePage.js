@@ -5,9 +5,6 @@ import styles from './ProfilePage.module.scss';
 
 const ProfilePage = () => {
   const match = useRouteMatch();
-  console.log(match);
-  console.log(match.url);
-  console.log(match.path);
   return (
     <section className={styles.profile}>
       <aside className={styles.profile__aside}>

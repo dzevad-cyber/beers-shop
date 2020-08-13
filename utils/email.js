@@ -6,6 +6,7 @@ module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;
     this.firstName = user.firstName;
+    this.lastName = user.lastName;
     this.url = url;
     this.from = `Dzevad Delihodzic <${process.env.EMAIL_FROM}>`;
   }
@@ -37,6 +38,7 @@ module.exports = class Email {
       `${__dirname}/../templates/email/${template}.pug`,
       {
         firstName: this.firstName,
+        lastName: this.lastName,
         url: this.url,
         subject,
       }

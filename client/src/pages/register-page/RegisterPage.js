@@ -53,7 +53,7 @@ const RegisterPage = () => {
           _reqFieldsTxt="* Required Fields"
           _placeholder="enter first name"
           _fn={_onChangeFirstName}
-          _error={errors.firstName ? errors.firstName : ''}
+          _error={errors ? errors.firstName : ''}
           _id="1"
         />
         <Input
@@ -62,7 +62,7 @@ const RegisterPage = () => {
           type="text"
           _placeholder="enter last name"
           _fn={_onChangeLastName}
-          _error={errors.lastName ? errors.lastName : ''}
+          _error={errors ? errors.lastName : ''}
           _id="2"
         />
         <Input
@@ -71,7 +71,7 @@ const RegisterPage = () => {
           _required={true}
           _type="email"
           _fn={_onChangeEmail}
-          _error={errors.email ? errors.email : ''}
+          _error={errors ? errors.email : ''}
           _id="3"
         />
         <Input
@@ -80,7 +80,7 @@ const RegisterPage = () => {
           _required={true}
           _type="password"
           _fn={_onChangePassword}
-          _error={errors.password ? errors.password : ''}
+          _error={errors ? errors.password : ''}
           _id="4"
         />
         <Input
@@ -89,7 +89,7 @@ const RegisterPage = () => {
           _required={true}
           _type="password"
           _fn={_onChangePasswordConfirm}
-          _error={errors.passwordConfirm ? errors.passwordConfirm : ''}
+          _error={errors ? errors.passwordConfirm : ''}
           _id="5"
         />
         <div className={styles.form__group}>

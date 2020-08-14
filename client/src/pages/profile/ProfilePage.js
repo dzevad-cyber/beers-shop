@@ -3,6 +3,7 @@ import { NavLink, useRouteMatch, Route, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import styles from './ProfilePage.module.scss';
+
 import ProfileAbout from '../../components/profile-about/ProfileAbout';
 import BtnLink from '../../components/btn-link/BtnLink';
 

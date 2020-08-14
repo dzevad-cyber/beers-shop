@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createBrowserHistory } from 'history';
 import axios from 'axios';
-
-const history = createBrowserHistory();
 
 export const cartSlice = createSlice({
   name: 'user',

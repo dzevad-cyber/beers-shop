@@ -12,10 +12,22 @@ router.route('/resend-token').post(authController.resendToken);
 
 router.use(authController.protect);
 
+//   cache this route
+router.route('/me').get(userController.getMe, userController.getUser);
 router
-  .route('/')
-  .get(authController.restritTo('admin'), userController.getAllUsers);
+  .route('/update/me')
+  .patch(
+    userController.getMe,
+    userController.checkUpdateBody,
+    userController.updateUser
+  );
 
 router.route('/logout').get(authController.logout);
+
+router.use(authController.restrictTo('admin'));
+
+router.route('/').get(userController.getAllUsers);
+router.route('/:id').get(userController.getUser);
+router.route('/update/:id').patch(userController.updateUser);
 
 module.exports = router;

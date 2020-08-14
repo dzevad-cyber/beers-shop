@@ -19,13 +19,11 @@ import AccountMenu from '../account-menu/AccountMenu';
 import CartMenu from '../cart-menu/CartMenu';
 
 import { selectCartTotalItems } from '../../store/cartSlice';
-
-let user = null;
-if (localStorage.getItem('user')) {
-  user = JSON.parse(localStorage.getItem('user'));
-}
+import { selectUser } from '../../store/userSlice';
 
 const Header = () => {
+  const user = useSelector(selectUser);
+
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showCartMenu, setShowCartMenu] = useState(false);
   const cartTotalItems = useSelector(selectCartTotalItems);

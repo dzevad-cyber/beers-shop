@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createBrowserHistory } from 'history';
 import axios from 'axios';
+
+const history = createBrowserHistory();
 
 export const cartSlice = createSlice({
   name: 'user',
@@ -34,6 +37,18 @@ export const cartSlice = createSlice({
     setMessage: (state, { payload }) => {
       state.message = payload;
     },
+    userUpdated: (state, { payload }) => {
+      console.log('user updated');
+      state.user = payload;
+    },
+    setUser: (state, { payload }) => {
+      state.user = payload || null;
+    },
+    loggedOut: state => {
+      state.user = null;
+      state.errors = {};
+      state.message = '';
+    },
   },
 });
 
@@ -46,6 +61,9 @@ export const {
   loginErrors,
   errorsCleard,
   setMessage,
+  userUpdated,
+  setUser,
+  loggedOut,
 } = cartSlice.actions;
 
 // thunk
@@ -72,16 +90,9 @@ export const login = user => async dispatch => {
       data: { data },
     } = await axios.post('/api/v1/users/login', user);
 
-    localStorage.setItem('user', JSON.stringify(data.user));
-    window.location.reload(true);
-
-    dispatch(loggedIn(data.user));
+    return dispatch(loggedIn(data.user));
   } catch (err) {
-    if (!err.response.data.error) {
-      dispatch(loginErrors(err.response.data));
-    } else {
-      console.log(err.response);
-    }
+    console.log(err.response);
   }
 };
 
@@ -97,8 +108,6 @@ export const verifyAccount = token => async dispatch => {
 };
 
 export const resendToken = email => async dispatch => {
-  console.log(email);
-
   try {
     const {
       data: { data },
@@ -113,6 +122,42 @@ export const resendToken = email => async dispatch => {
     }
   }
 };
+
+export const getMe = () => async dispatch => {
+  try {
+    const {
+      data: { data },
+    } = await axios.get('/api/v1/users/me');
+
+    dispatch(setUser(data.user));
+  } catch (err) {
+    console.log(err.response);
+  }
+};
+
+export const updateMe = user => async dispatch => {
+  try {
+    const {
+      data: { data },
+    } = await axios.patch('/api/v1/users/update/me', user);
+
+    dispatch(setUser(data.user));
+  } catch (err) {
+    console.log(err.response);
+  }
+};
+
+export const logout = () => async dispatch => {
+  try {
+    await axios.get('/api/v1/users/logout');
+
+    return dispatch(loggedOut());
+  } catch (err) {
+    console.log(err.response);
+  }
+};
+
+// _end
 
 // selectors
 export const selectErrors = state => state.user.errors;

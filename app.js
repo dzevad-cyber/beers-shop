@@ -36,6 +36,8 @@ app.use('/api', limiter);
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 // ---------- ROUTES --------------
+// app.use('/profile/api/v1/users', userRouter);
+
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userRouter);
 

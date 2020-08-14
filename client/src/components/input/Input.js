@@ -11,6 +11,8 @@ const Input = ({
   _fn,
   _error,
   _id,
+  value,
+  name,
 }) => {
   return (
     <section className={styles.inputBox}>
@@ -28,6 +30,8 @@ const Input = ({
         type={_type ? _type : 'text'}
         placeholder={_placeholder}
         onChange={_fn}
+        value={value}
+        name={name}
       />
       <div className={styles.inputBox__inputError}>{_error}</div>
     </section>

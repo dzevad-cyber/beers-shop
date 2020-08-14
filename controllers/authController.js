@@ -128,6 +128,7 @@ exports.resendToken = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = catchAsync(async (req, res, next) => {
+  console.log('in logout controller');
   res.clearCookie('jwt');
 
   res.status(200).json({
@@ -157,7 +158,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.restritTo = (...roles) => (req, res, next) => {
+exports.restrictTo = (...roles) => (req, res, next) => {
   if (!roles.includes(req.user.role)) {
     return next(new AppError('Permision denied!', 403));
   }

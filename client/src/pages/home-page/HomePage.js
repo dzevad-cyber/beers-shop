@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import styles from './HomePage.module.scss';
@@ -17,16 +17,13 @@ import Product from '../../components/product/Product';
 import beersImg from '../../assets/images/beers_04_2048x.jpg';
 import { ReactComponent as ArrowRight } from '../../assets/icons/arrow_right_alt-24px.svg';
 
-import { selectProducts, fetchProductsFromDb } from '../../store/productsSlice';
+import { selectProducts } from '../../store/productsSlice';
 
 const HomePage = () => {
-  const list = useSelector(selectProducts);
   const dispatch = useDispatch();
-
-  console.log('homepage/list', list);
+  const products = useSelector(selectProducts);
 
   useEffect(() => {
-    dispatch(fetchProductsFromDb());
     window.scrollTo(0, 0);
   }, [dispatch]);
 
@@ -35,8 +32,8 @@ const HomePage = () => {
       <Intro />
       <ProductsBox>
         <ProductsList _className={styles.productsList}>
-          {list &&
-            list.map((product, index) => (
+          {products &&
+            products.map((product, index) => (
               <Link
                 key={index}
                 to={`/product/${product.id}`}

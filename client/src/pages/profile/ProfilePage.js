@@ -1,10 +1,23 @@
 import React from 'react';
-import { NavLink, useRouteMatch, Route } from 'react-router-dom';
+import { NavLink, useRouteMatch, Route, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import styles from './ProfilePage.module.scss';
+import ProfileAbout from '../../components/profile-about/ProfileAbout';
+import BtnLink from '../../components/btn-link/BtnLink';
+
+import { logout } from '../../store/userSlice';
 
 const ProfilePage = () => {
+  const dispatch = useDispatch();
   const match = useRouteMatch();
+  const history = useHistory();
+
+  const onLogout = () => {
+    dispatch(logout());
+    history.push('/');
+  };
+
   return (
     <section className={styles.profile}>
       <aside className={styles.profile__aside}>
@@ -35,11 +48,12 @@ const ProfilePage = () => {
             orders
           </NavLink>
         </ul>
+        <BtnLink _onClick={onLogout} _class={styles.btnLogout}>
+          Log out
+        </BtnLink>
       </aside>
       <main className={styles.profile__main}>
-        <Route exact path={`${match.path}/about`}>
-          <div>About</div>
-        </Route>
+        <Route exact path={`${match.path}/about`} component={ProfileAbout} />
         <Route exact path={`${match.path}/account`}>
           <div>Account</div>
         </Route>

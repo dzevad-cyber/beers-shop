@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import styles from './App.module.scss';
 
@@ -16,7 +17,14 @@ import BtnScrollTop from './components/btn-scroll-top/BtnScrollTop';
 import VerifyAccountPage from './pages/verify-account/VerifyAccountPage';
 import ProfilePage from './pages/profile/ProfilePage';
 
+import { getMe } from './store/userSlice';
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
   return (
     <Router>
       <div className={styles.app}>

@@ -2,18 +2,17 @@ extends base
 
 block content  
     p Hi #{firstName} #{lastName},
-        p To complete your sign up, please verify your email:
-        p We're all a big familiy here, so make sure to upload your user photo so we get to know you a bit better!
-        table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
-            tbody
-                tr
-                    td(align='left')
-                        table(role='presentation', border='0', cellpadding='0', cellspacing='0')
-                            tbody
-                                tr
-                                    td
-                                        a(href=`${url}`, target='_blank') Verify email
-        p Or copy this link and paste in ypur web browser
-        a(href=`${url}`, target='_blank') #{url}
-        p Cheers,
-        p Beers Shop Team, CEO
+    p To complete your sign up, please verify your email:
+    table.btn.btn-primary(role='presentation', border='0', cellpadding='0',cellspacing='0')
+        tbody
+            tr
+                td(align='left')
+                    table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                        tbody
+                            tr
+                                td
+                                    a(href=`${url}`, target='_blank') Verify email
+    p Or copy this link and paste in ypur web browser
+    a(href=`${url}`, target='_blank') #{url}
+    p Cheers,
+    p Beers Shop Team, CEO

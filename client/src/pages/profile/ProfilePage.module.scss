@@ -12,14 +12,14 @@
   &__aside {
     background-color: goldenrod;
     display: grid;
-    grid-auto-rows: min-content;
+    grid-template-rows: min-content 1fr min-content;
     grid-row-gap: 2rem;
-    padding: 1rem;
+    padding-top: 1rem;
     background-color: whitesmoke;
   }
 
   &__main {
-    background-color: whitesmoke;
+    // background-color: whitesmoke;
   }
 
   &__header {
@@ -38,6 +38,7 @@
     color: var(--color-black);
     cursor: pointer;
     position: relative;
+    padding-left: 1rem;
   }
 
   &__linkActive::after {
@@ -53,6 +54,10 @@
     background-color: tomato;
     opacity: 0;
   }
+}
+
+.btnLogout {
+  font-size: var(--fz-small);
 }
 
 @keyframes slide_up {

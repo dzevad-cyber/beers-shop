@@ -9,6 +9,7 @@ process.on('uncaughtException', err => {
   process.exit(1);
 });
 
+
 const app = require('./app');
 
 const DB = process.env.DATABASE.replace(

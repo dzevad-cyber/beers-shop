@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import styles from './SignInPage.module.scss';
 import Form from '../../components/form/Form';
@@ -9,6 +10,7 @@ import { login, selectMessage, errorsCleard } from '../../store/userSlice';
 
 const SignInPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(errorsCleard());
@@ -22,7 +24,10 @@ const SignInPage = () => {
   const _onChangeEmail = e => setEmail(e.target.value);
   const _onChangePassword = e => setPassword(e.target.value);
 
-  const loginUser = () => dispatch(login(user));
+  const loginUser = async () => {
+    const isLoggedIn = await dispatch(login(user));
+    if (isLoggedIn) history.push('/profile/about');
+  };
 
   const user = { email, password };
 

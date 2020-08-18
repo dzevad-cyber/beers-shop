@@ -73,15 +73,12 @@ export const signup = user => async dispatch => {
 
     dispatch(userSignedup(data.message));
   } catch (err) {
-    if (!err.response.data.error) {
-      dispatch(userErrorsSet(err.response.data));
-    } else {
-      console.log(err);
-      console.log(err.response);
-      console.log(err.response.data);
-      console.log({ ...err.response.data });
-      console.log({ ...err.response });
-    }
+    dispatch(userErrorsSet(err.response.data));
+    console.log(err);
+    console.log(err.response);
+    console.log(err.response.data);
+    console.log({ ...err.response.data });
+    console.log({ ...err.response });
   }
 };
 

@@ -41,9 +41,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     token: signToken(user),
   });
 
-  const url = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/account/confirm/${token}`;
+  const url = `${req.protocol}://${req.get('host')}/account/verify/${token}`;
 
   // const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
 

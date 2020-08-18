@@ -13,6 +13,7 @@ const Input = ({
   _id,
   value,
   name,
+  classInput,
 }) => {
   return (
     <section className={styles.inputBox}>
@@ -25,7 +26,7 @@ const Input = ({
         )}
       </label>
       <input
-        className={styles.inputBox__input}
+        className={`${styles.inputBox__input} ${classInput}`}
         id={_id}
         type={_type ? _type : 'text'}
         placeholder={_placeholder}

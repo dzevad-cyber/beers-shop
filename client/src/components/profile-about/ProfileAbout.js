@@ -48,6 +48,7 @@ const ProfileAbout = () => {
         _type="email"
         _fn={onSetUserUpdates}
         name="email"
+        classInput={styles.input}
       />
       <BtnGoTo _onClick={onUpdateMe} _className={styles.btn}>
         Save Changes

@@ -12,7 +12,10 @@ const VerifyAccountPage = () => {
   const dispatch = useDispatch();
   const message = useSelector(selectMessage);
 
+  console.log(token);
+
   useEffect(() => {
+    console.log('useEffect.verifyAccount//');
     dispatch(verifyAccount(token));
   }, [dispatch, token]);
 

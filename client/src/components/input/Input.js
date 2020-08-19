@@ -14,9 +14,10 @@ const Input = ({
   value,
   name,
   classInput,
+  classBox,
 }) => {
   return (
-    <section className={styles.inputBox}>
+    <section className={`${styles.inputBox} ${classBox}`}>
       <label className={styles.inputBox__label} htmlFor={_id}>
         <div>
           {_label} {_required && <span>*</span>}

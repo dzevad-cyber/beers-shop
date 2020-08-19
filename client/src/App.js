@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './App.module.scss';
 
@@ -17,10 +17,12 @@ import BtnScrollTop from './components/btn-scroll-top/BtnScrollTop';
 import VerifyAccountPage from './pages/verify-account/VerifyAccountPage';
 import ProfilePage from './pages/profile/ProfilePage';
 
-import { getMe } from './store/userSlice';
+import { getMe, selectUser } from './store/userSlice';
+import ProtectedRoute from './components/protected-route/ProtectedRoute';
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(getMe());
@@ -36,12 +38,13 @@ function App() {
           <Route exact path="/products" component={ProductsPage} />
           <Route exact path="/product/:id" component={ProductPage} />
           <Route exact path="/cart" component={CartPage} />
-          <Route path="/profile" component={ProfilePage} />
+          {/* <Route path="/profile" component={ProfilePage} /> */}
           <Route
             exact
             path="/account/verify/:token"
             component={VerifyAccountPage}
           />
+          <ProtectedRoute user={user} path="/profile" component={ProfilePage} />
         </Switch>
         <Footer />
         <BtnScrollToTopMobile>back to top</BtnScrollToTopMobile>

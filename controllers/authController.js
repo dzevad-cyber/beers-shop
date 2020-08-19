@@ -21,7 +21,7 @@ const createSendToken = (user, statuCode, res) => {
     ),
     httpOnly: true,
   };
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
   res.cookie('jwt', token, cookieOptions);
 
@@ -34,17 +34,23 @@ const createSendToken = (user, statuCode, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
-  req.body.isVerified = false;
-  const user = await User.create(req.body);
+  const user = await User.create({
+    ...req.body,
+    isVerified: false,
+    role: 'user',
+  });
   const { token } = await Token.create({
     _userId: user._id,
     token: signToken(user),
   });
 
-  const url = `${req.protocol}://${req.get('host')}/account/verify/${token}`;
+  // let url;
+  // if (process.env.NODE_ENV === 'production') {
+  //   url = `${req.protocol}://${req.get('host')}/account/verify/${token}`;
+  // } else {
+  // }
 
-  // const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
-
+  const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
   await new Email(user, url).sendWelcome();
 
   res.status(200).json({
@@ -111,14 +117,19 @@ exports.resendToken = catchAsync(async (req, res, next) => {
     return next(new AppError('Account has been verified', 400));
   }
 
-  const token = await Token.create({
+  const { token } = await Token.create({
     _userId: user._id,
     token: signToken(user._id),
   });
 
-  const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
+  // url for client in dev mode
+  // const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
+
+  // url for server
+  const url = `${req.protocol}://${req.headers.host}/api/v1/users/account/confirm/${token}`;
 
   await new Email(user, url).sendWelcome();
+
   res.status(200).json({
     status: 'success',
     data: { message: `A verification email has been sent to ${user.email}` },
@@ -133,6 +144,22 @@ exports.logout = catchAsync(async (req, res, next) => {
     status: 'success',
     data: null,
   });
+});
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user._id).select('+password');
+  if (!user) return next(new AppError('Please log in.', 403));
+
+  if (!(await user.correctPassword(req.body.oldPassword, user.password))) {
+    return next(new AppError('Wrong password', 401));
+  }
+
+  user.password = req.body.newPassword;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+
+  res.clearCookie('jwt');
+  createSendToken(user, 200, res);
 });
 
 // MIDDLEWARES

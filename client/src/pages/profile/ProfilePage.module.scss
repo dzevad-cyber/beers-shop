@@ -10,16 +10,12 @@
   font-weight: 900;
 
   &__aside {
-    background-color: goldenrod;
     display: grid;
     grid-template-rows: min-content 1fr min-content;
     grid-row-gap: 2rem;
     padding-top: 1rem;
     background-color: whitesmoke;
-  }
-
-  &__main {
-    // background-color: whitesmoke;
+    height: 50vh;
   }
 
   &__header {
@@ -54,6 +50,10 @@
     background-color: tomato;
     opacity: 0;
   }
+
+  &__menuIcon {
+    display: none;
+  }
 }
 
 .btnLogout {
@@ -74,5 +74,42 @@
   100% {
     transform: translateY(-100%);
     opacity: 1;
+  }
+}
+
+@keyframes slide_left {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(-30%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+}
+
+// 1200px - 75rem - tablet
+@media (max-width: 75rem) {
+  .profile {
+    grid-column: 1 / -1;
+    padding: 4rem;
+  }
+}
+
+// 800px - 50rem - tablet / mobile
+@media (max-width: 50rem) {
+  .profile {
+    grid-template-columns: initial;
+    grid-row-gap: 2rem;
+
+    &__aside {
+      height: min-content;
+    }
   }
 }

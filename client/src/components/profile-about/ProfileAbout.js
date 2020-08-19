@@ -31,12 +31,14 @@ const ProfileAbout = () => {
   return (
     <Form _className={styles.profileAbout}>
       <Input
+        classInput={styles.input}
         _label="First Name"
         _placeholder={user && user.firstName}
         _fn={onSetUserUpdates}
         name="firstName"
       />
       <Input
+        classInput={styles.input}
         _label="Last Name"
         _placeholder={user && user.lastName}
         _fn={onSetUserUpdates}

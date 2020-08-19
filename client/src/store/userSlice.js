@@ -22,10 +22,9 @@ export const cartSlice = createSlice({
     },
     loggedIn: (state, { payload: user }) => {
       state.user = user;
-      state.message = "You're logged in.";
     },
     loginErrors: (state, { payload }) => {
-      state.message = payload.message;
+      state.message = payload;
     },
     errorsCleard: state => {
       state.errors = {};
@@ -35,7 +34,6 @@ export const cartSlice = createSlice({
       state.message = payload;
     },
     userUpdated: (state, { payload }) => {
-      console.log('user updated');
       state.user = payload;
     },
     setUser: (state, { payload }) => {
@@ -45,6 +43,10 @@ export const cartSlice = createSlice({
       state.user = null;
       state.errors = {};
       state.message = '';
+    },
+    passwordUpdated: (state, { payload }) => {
+      state.user = payload.user;
+      state.message = payload.message;
     },
   },
 });
@@ -61,6 +63,7 @@ export const {
   userUpdated,
   setUser,
   loggedOut,
+  passwordUpdated,
 } = cartSlice.actions;
 
 // thunk
@@ -74,11 +77,6 @@ export const signup = user => async dispatch => {
     dispatch(userSignedup(data.message));
   } catch (err) {
     dispatch(userErrorsSet(err.response.data));
-    console.log(err);
-    console.log(err.response);
-    console.log(err.response.data);
-    console.log({ ...err.response.data });
-    console.log({ ...err.response });
   }
 };
 
@@ -90,6 +88,7 @@ export const login = user => async dispatch => {
 
     return dispatch(loggedIn(data.user));
   } catch (err) {
+    dispatch(loginErrors(err.response.data.message));
     console.log(err.response);
   }
 };
@@ -151,6 +150,26 @@ export const logout = () => async dispatch => {
 
     return dispatch(loggedOut());
   } catch (err) {
+    console.log(err.response);
+  }
+};
+
+// patch
+export const updatePassword = passData => async dispatch => {
+  try {
+    const {
+      data: { data },
+    } = await axios.patch('/api/v1/users/update-password', passData);
+
+    dispatch(
+      passwordUpdated({
+        user: data.user,
+        message: 'Password updated. Please login again.',
+      })
+    );
+    return dispatch(loggedOut());
+  } catch (err) {
+    dispatch(userErrorsSet(err.response.data));
     console.log(err.response);
   }
 };

@@ -69,9 +69,9 @@
 
 .form__group {
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-gap: 2rem;
   align-items: end;
-  justify-content: space-between;
 }
 
 .warning {
@@ -92,9 +92,30 @@
   grid-column: 2;
 }
 
+// 800px - 50rem - mobile
+@media (max-width: 50rem) {
+  .signInPage {
+    grid-column: 2 / 3;
+    grid-template-columns: initial;
+
+    &__title {
+      font-size: 24px;
+    }
+  }
+
+  .form__signIn {
+    grid-column: 1 / -1;
+  }
+
+  .form__resetPassword {
+    grid-column: 1 / -1;
+  }
+}
+
 // 450px - 28.125rem - mobile
 @media (max-width: 28.125rem) {
   .signInPage {
+    grid-column: 1 / -1;
     grid-template-columns: initial;
 
     &__title {

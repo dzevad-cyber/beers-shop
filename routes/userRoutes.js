@@ -23,6 +23,7 @@ router
   );
 
 router.route('/logout').get(authController.logout);
+router.route('/update-password').patch(authController.updatePassword);
 
 router.use(authController.restrictTo('admin'));
 

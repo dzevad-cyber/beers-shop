@@ -44,13 +44,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     token: signToken(user),
   });
 
-  // let url;
-  // if (process.env.NODE_ENV === 'production') {
-  //   url = `${req.protocol}://${req.get('host')}/account/verify/${token}`;
-  // } else {
-  // }
+  const url = `${req.protocol}://${req.get('host')}/account/verify/${token}`;
 
-  const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
+  // const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
   await new Email(user, url).sendWelcome();
 
   res.status(200).json({

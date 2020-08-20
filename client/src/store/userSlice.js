@@ -48,6 +48,9 @@ export const cartSlice = createSlice({
       state.user = payload.user;
       state.message = payload.message;
     },
+    passReseted: (state, action) => {
+      state.message = 'Please login with new password.';
+    },
   },
 });
 
@@ -64,6 +67,7 @@ export const {
   setUser,
   loggedOut,
   passwordUpdated,
+  passReseted,
 } = cartSlice.actions;
 
 // thunk
@@ -170,6 +174,27 @@ export const updatePassword = passData => async dispatch => {
     return dispatch(loggedOut());
   } catch (err) {
     dispatch(userErrorsSet(err.response.data));
+    console.log(err.response);
+  }
+};
+
+export const resetPassword = (token, passData) => async dispatch => {
+  try {
+    await axios.post(`/api/v1/users/reset-password/${token}`, passData);
+
+    dispatch(passReseted());
+  } catch (err) {
+    console.log(err.response.data);
+  }
+};
+
+export const forgotPassword = email => async dispatch => {
+  try {
+    const { data } = await axios.post('/api/v1/users/forgot-password', {
+      email,
+    });
+    dispatch(setMessage(data.data.message));
+  } catch (err) {
     console.log(err.response);
   }
 };

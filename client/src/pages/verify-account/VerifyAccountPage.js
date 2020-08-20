@@ -15,7 +15,6 @@ const VerifyAccountPage = () => {
   console.log(token);
 
   useEffect(() => {
-    console.log('useEffect.verifyAccount//');
     dispatch(verifyAccount(token));
   }, [dispatch, token]);
 

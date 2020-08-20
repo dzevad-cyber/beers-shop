@@ -2,9 +2,10 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 
 const catchAsync = require('../utils/catchAsync');
-const User = require('../models/userModel');
 const Email = require('../utils/email');
 const AppError = require('../utils/appError');
+
+const User = require('../models/userModel');
 const Token = require('../models/tokenModel');
 
 const signToken = user => {
@@ -156,6 +157,66 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   res.clearCookie('jwt');
   createSendToken(user, 200, res);
+});
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  const { email } = req.body;
+
+  // todo 1. get user based on posted email
+  const user = await User.findOne({ email });
+  if (!user) return next(new AppError('User not found.', 404));
+
+  // generate reset token
+  const { token } = await Token.create({
+    _userId: user._id,
+    token: signToken(user),
+  });
+
+  // send it to user's mail
+  try {
+    const resetUrl = `${req.protocol}://${req.get(
+      'host'
+    )}/reset-password/${token}`;
+
+    // if (
+    //   req.get('host') === '127.0.0.1:5000' &&
+    //   req.headers['x-forwarded-host']
+    // ) {
+    //   // production heroku
+    //   resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${token}`;
+    // } else if (req.headers['x-forwarded-host']) {
+    //   resetUrl = `${req.protocol}://${req.headers['x-forwarded-host']}/reset-password/${token}`;
+    // } else {
+    //   resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${token}`;
+    // }
+
+    console.log('RESET_URL//', resetUrl);
+
+    await new Email(user, resetUrl).sendPasswordReset();
+    res.status(200).json({
+      status: 'success',
+      data: { message: 'Please check your email to reset password.' },
+    });
+  } catch (err) {
+    return next(new AppError('Error sending email. Try again later.', 500));
+  }
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  console.log(req.body);
+  const { _userId } = await Token.findOne({ token: req.params.token });
+
+  const user = await User.findById(_userId);
+  if (!user) return next(new AppError('Token invalid or expired.', 400));
+
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save({ validateBeforeSave: true });
+
+  res.status(200).json({
+    status: 'success',
+    data: { user },
+  });
 });
 
 // MIDDLEWARES

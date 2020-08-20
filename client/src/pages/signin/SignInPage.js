@@ -6,7 +6,12 @@ import styles from './SignInPage.module.scss';
 import Form from '../../components/form/Form';
 import BtnGoTo from '../../components/btn-go-to/BtnGoTo';
 import Input from '../../components/input/Input';
-import { login, selectMessage, errorsCleard } from '../../store/userSlice';
+import {
+  login,
+  selectMessage,
+  errorsCleard,
+  forgotPassword,
+} from '../../store/userSlice';
 
 const SignInPage = () => {
   const dispatch = useDispatch();
@@ -27,6 +32,10 @@ const SignInPage = () => {
   const loginUser = async () => {
     const isLoggedIn = await dispatch(login(user));
     if (isLoggedIn) history.push('/profile/about');
+  };
+
+  const onSubmitResetPassword = () => {
+    dispatch(forgotPassword(email));
   };
 
   const user = { email, password };
@@ -94,9 +103,15 @@ const SignInPage = () => {
             _required={true}
             _type="email"
             _reqFieldsTxt="* Required Fields"
+            _fn={_onChangeEmail}
           />
           <div className={styles.form__group}>
-            <BtnGoTo _className={styles.btnGoTo__login}>submit</BtnGoTo>
+            <BtnGoTo
+              _onClick={onSubmitResetPassword}
+              _className={styles.btnGoTo__login}
+            >
+              submit
+            </BtnGoTo>
             <span
               onClick={() => setToggle(!toggle)}
               className={`${styles.signInPage__text} ${styles.warning}`}

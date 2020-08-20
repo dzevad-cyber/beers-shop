@@ -6,9 +6,12 @@ const userController = require('../controllers/userController');
 const router = express.Router();
 
 router.route('/signup').post(authController.signup);
-router.route('/account/confirm/:token').get(authController.confirmAccount);
 router.route('/login').post(authController.login);
+
+router.route('/account/confirm/:token').get(authController.confirmAccount);
 router.route('/resend-token').post(authController.resendToken);
+router.route('/forgot-password').post(authController.forgotPassword);
+router.route('/reset-password/:token').post(authController.resetPassword);
 
 router.use(authController.protect);
 

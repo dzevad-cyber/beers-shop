@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useRouteMatch, Route, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -7,13 +7,17 @@ import styles from './ProfilePage.module.scss';
 import ProfileAbout from '../../components/profile-about/ProfileAbout';
 import BtnLink from '../../components/btn-link/BtnLink';
 
-import { logout } from '../../store/userSlice';
+import { logout, errorsCleard } from '../../store/userSlice';
 import ProfileAccount from '../../components/profile-account/ProfileAccount';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch();
   const history = useHistory();
+
+  useEffect(() => {
+    dispatch(errorsCleard());
+  }, [dispatch]);
 
   const onLogout = async () => {
     const isLoggedout = await dispatch(logout());

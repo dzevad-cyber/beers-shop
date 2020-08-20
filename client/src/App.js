@@ -19,6 +19,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 
 import { getMe, selectUser } from './store/userSlice';
 import ProtectedRoute from './components/protected-route/ProtectedRoute';
+import PasswordResetPage from './pages/password-reset/PasswordResetPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,11 @@ function App() {
           <Route exact path="/products" component={ProductsPage} />
           <Route exact path="/product/:id" component={ProductPage} />
           <Route exact path="/cart" component={CartPage} />
+          <Route
+            exact
+            path="/reset-password/:token"
+            component={PasswordResetPage}
+          />
           {/* <Route path="/profile" component={ProfilePage} /> */}
           <Route
             exact

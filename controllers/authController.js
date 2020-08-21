@@ -8,6 +8,23 @@ const AppError = require('../utils/appError');
 const User = require('../models/userModel');
 const Token = require('../models/tokenModel');
 
+const getURL = (req, token, clientPath, apiPath) => {
+  if (req.get('host') === '127.0.0.1:5000' && req.headers['x-forwarded-host']) {
+    // production heroku
+    console.log('1. //', req, token, clientPath);
+    return `${req.protocol}://${req.get('host')}/${clientPath}/${token}`;
+  }
+  if (req.headers['x-forwarded-host']) {
+    console.log('2.//');
+    // in dev mode i.e client + server:dev
+    return `${req.protocol}://${req.headers['x-forwarded-host']}/${clientPath}/${token}`;
+  }
+  console.log('3. //');
+  return `${req.protocol}://${req.get(
+    'host'
+  )}/api/v1/users/${apiPath}/${token}`;
+};
+
 const signToken = user => {
   return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -24,12 +41,12 @@ const createSendToken = (user, statuCode, res) => {
   };
   // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
-  res.cookie('jwt', token, cookieOptions);
-
   user.password = undefined;
+
+  res.cookie('jwt', token, cookieOptions);
   res.status(200).json({
     status: 'success',
-    token,
+    // token,
     data: { user },
   });
 };
@@ -45,9 +62,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     token: signToken(user),
   });
 
-  const url = `${req.protocol}://${req.get('host')}/account/verify/${token}`;
-
-  // const url = `${req.protocol}://${req.headers['x-forwarded-host']}/account/verify/${token}`;
+  const url = getURL(req, token, 'account/verify', 'account/confirm');
   await new Email(user, url).sendWelcome();
 
   res.status(200).json({
@@ -177,18 +192,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     const resetUrl = `${req.protocol}://${req.get(
       'host'
     )}/reset-password/${token}`;
-
-    // if (
-    //   req.get('host') === '127.0.0.1:5000' &&
-    //   req.headers['x-forwarded-host']
-    // ) {
-    //   // production heroku
-    //   resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${token}`;
-    // } else if (req.headers['x-forwarded-host']) {
-    //   resetUrl = `${req.protocol}://${req.headers['x-forwarded-host']}/reset-password/${token}`;
-    // } else {
-    //   resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${token}`;
-    // }
 
     console.log('RESET_URL//', resetUrl);
 
